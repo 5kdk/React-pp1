@@ -34,14 +34,16 @@
 
 ## **✅ Commit convention**
 
-| commit   | 설명        |
-| -------- | ----------- |
-| fix      | 버그 수정   |
-| feat     | 기능 추가   |
-| refactor | 기능 수정   |
-| style    | 스타일 수정 |
-| docs     | 문서 수정   |
-| image    | 이미지 수정 |
+| commit   | 설명              |
+| -------- | ----------------- |
+| add      | 파일 추가         |
+| remove   | 파일 및 기능 삭제 |
+| feat     | 새 기능 추가      |
+| refactor | 기능 수정         |
+| fix      | 버그 수정         |
+| style    | 스타일 수정       |
+| docs     | 문서 수정         |
+| image    | 이미지 수정       |
 
 <br>
 
