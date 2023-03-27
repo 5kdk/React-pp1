@@ -18,10 +18,11 @@ const App = () => {
       <Checker
         onSubmit={e => {
           e.preventDefault();
+
           setSubmittedStr(inputRef.current.value);
           inputRef.current.value = '';
         }}>
-        <Input name="palindrome-input" ref={inputRef} />
+        <Input ref={inputRef} />
         <Button>Check</Button>
         {submittedStr && (
           <Result>{`${submittedStr} is ${isPalindrome(submittedStr) ? '' : 'not'} a palindrome`}</Result>
@@ -51,7 +52,7 @@ const Button = styled.button.attrs({ type: 'submit' })`
   cursor: pointer;
 `;
 
-const Input = styled.input.attrs({ type: 'text', placeholder: 'Enter a word to check' })`
+const Input = styled.input.attrs({ type: 'text', name: 'palindrome-input', placeholder: 'Enter a word to check' })`
   width: 240px;
   padding: 10px 5px;
   font-size: 1rem;

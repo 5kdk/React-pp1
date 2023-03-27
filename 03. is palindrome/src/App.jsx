@@ -18,11 +18,11 @@ const App = () => {
       <Checker
         onSubmit={e => {
           e.preventDefault();
+
           setSubmittedStr(inputStr);
           setInputStr('');
         }}>
         <Input
-          name="palindrome-input"
           value={inputStr}
           onChange={e => {
             setInputStr(e.target.value);
@@ -57,7 +57,7 @@ const Button = styled.button.attrs({ type: 'submit' })`
   cursor: pointer;
 `;
 
-const Input = styled.input.attrs({ type: 'text', placeholder: 'Enter a word to check' })`
+const Input = styled.input.attrs({ type: 'text', name: 'palindrome-input', placeholder: 'Enter a word to check' })`
   width: 240px;
   padding: 10px 5px;
   font-size: 1rem;
