@@ -1,7 +1,6 @@
-# **🧑‍🤝‍🧑 React - Pair Programming 1**
+# **👨‍💻👩‍💻 React - Pair Programming 1**
 
 **[서예빈's github](https://github.com/bin000527)**
-
 **[김동규's github](https://github.com/5kdk)**
 
 <br>
@@ -39,7 +38,7 @@
 | add      | 파일 추가         |
 | remove   | 파일 및 기능 삭제 |
 | feat     | 새 기능 추가      |
-| refactor | 기능 수정         |
+| refactor | 리팩토링          |
 | fix      | 버그 수정         |
 | style    | 스타일 수정       |
 | docs     | 문서 수정         |
@@ -64,6 +63,5 @@
 
 ## **⚡ Mission**
 
-<!-- 예시 -->
-
-- [01. Toggle side navigation](./01.Toggle%20side%20navigation/README.md)
+-   [01. scrolling go to top](01.%20scrolling%20go%20to%20top/README.md)
+-   [02. counter](02.%20counter/README.md)
