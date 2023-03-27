@@ -34,20 +34,14 @@
 
 ## **✅ Commit convention**
 
-| commit   | 설명     | 예시                         |
-| -------- | -------- | ---------------------------- |
-| feat     | 기능     | feat: Add modal component    |
-| docs     | 문서     | docs: Update README.md       |
-| refactor | 리팩토링 | refactor: Update State(form) |
-| fix      | 디버그   | fix: Fix CORS error          |
-
-### **Keyword**
-
-- Add : 새로운 파일 혹은 새로운 기능 추가
-- Remove : 기존의 기능 및 파일 삭제
-- Change : 기존에 있는 것을 삭제하고, 새로운 기능 추가
-- Update : 기존에 있는 것을 유지하고, 새로운 기능 추가
-- Fix : 버그 수정
+| commit   | 설명        |
+| -------- | ----------- |
+| fix      | 버그 수정   |
+| feat     | 기능 추가   |
+| refactor | 기능 수정   |
+| style    | 스타일 수정 |
+| docs     | 문서 수정   |
+| image    | 이미지 수정 |
 
 <br>
 
