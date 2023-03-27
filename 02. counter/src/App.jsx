@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import reactLogo from './assets/react.svg';
+import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 
 const App = () => {
   const [counter, setCounter] = useState(0);
@@ -9,12 +9,12 @@ const App = () => {
     <>
       <Title>Counter</Title>
       <Constainer>
-        <Button role="button" onClick={counter > 0 ? () => setCounter(counter - 1) : null}>
-          <img src={reactLogo} alt="decrease" />
+        <Button role="button" onClick={counter > 0 ? () => setCounter(counter - 1) : undefined}>
+          <AiOutlineMinus />
         </Button>
         <Counter>{counter}</Counter>
         <Button role="button" onClick={() => setCounter(counter + 1)}>
-          <img src={reactLogo} alt="increase" />
+          <AiOutlinePlus />
         </Button>
       </Constainer>
     </>
