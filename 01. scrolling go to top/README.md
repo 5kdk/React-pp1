@@ -2,18 +2,14 @@
 
 - [**1. scrolling goto top**](#1-scrolling-goto-top)
   - [**요구사항**](#요구사항)
-  - [**src="./assets/react.svg"**](#srcassetsreactsvg)
-    - [**현상**(Facts)](#현상facts)
-    - [**발견**(Discovery)](#발견discovery)
-    - [**배운점**(Lessons Learned)](#배운점lessons-learned)
   - [**조건부 렌더링 vs props**](#조건부-렌더링-vs-props)
     - [**현상**(fact)](#현상fact)
-    - [**발견**(Discovery)](#발견discovery-1)
+    - [**발견**(Discovery)](#발견discovery)
     - [**배운점** (Lessons Learned)](#배운점-lessons-learned)
   - [**자식 컴포넌트 TopButton**](#자식-컴포넌트-topbutton)
-    - [**현상**(Facts)](#현상facts-1)
-    - [**발견**(Discovery)](#발견discovery-2)
-    - [**배운점**(Lessons Learned)](#배운점lessons-learned-1)
+    - [**현상**(Facts)](#현상facts)
+    - [**발견**(Discovery)](#발견discovery-1)
+    - [**배운점**(Lessons Learned)](#배운점lessons-learned)
   - [**Keyframes를 이용한 애니메이션**](#keyframes를-이용한-애니메이션)
   - [**선언**(Declation)](#선언declation)
 
@@ -26,42 +22,6 @@
 3. `.scroll-icon` 버튼을 클릭하면 맨 위로 스크롤한다.
 4. scroll 이벤트는 짧은 시간 간격으로 연속해서 발생한다. 이벤트 핸들러가 과도하게 호출되지 않도록 한다.
    - <41장 3.디바운스와 스로틀>을 참고한다. 단, 직접 구현하지 말고 lodash를 사용한다.
-
-<br>
-
-## **src="./assets/react.svg"**
-
-### **현상**(Facts)
-
-- `<img>` 태그에 `src`로 `react.svg` svg 파일의 경로를 주었으나 화면에 제대로 이미지가 나오지 않는 문제가 있었다.
-
-<br>
-
-### **발견**(Discovery)
-
-- `<img>` 태그의 src 속성은 index.html 기준으로 경로를 잡는게되어 이미지를 제대로 불러오지 못하 것을 확인했다.
-- 이를 해결할 방법으로 두가지 대안을 발견했다.
-  - 첫번쨰 index.html 기준으로 이미지 경로를 넘겨주는 방법
-  - `import` 문으로 이미지를 가져오는 방법
-
-```jsx
-import reactLogo from './assets/react.svg';
-
-// ...
-
-return (
-  // <img src={'./assets/react.svg'} alt="go up button" />  // path를 찾지 못함
-  // <img src={'src/assets/react.svg'} alt="go up button" />
-  <img src={reactLogo} alt="go up button" />
-);
-```
-
-<br>
-
-### **배운점**(Lessons Learned)
-
-- 컴포넌트안에서 직관적으로 경로를 나타내기 위해, 경로를 `src`로 넘겨주는 것 보다 이미지를 `import`해서 넘겨줬다.
-- jsx는 파싱되어 하나의 html이 되기 때문에, 표현식을 쓰거나 혹은 경로를 문자열로 줄 때는 html 파일을 기준으로 작성해야 한다는 점을 배웠다.
 
 <br>
 
@@ -85,7 +45,7 @@ return (
     onClick={() => {
       window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
     }}>
-    <img src={reactLogo} alt="go up button" />
+    <HiChevronDoubleUp />
   </Icon>
 );
 ```
@@ -101,7 +61,7 @@ return (
         onClick={() => {
           window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
         }}>
-        <img src={reactLogo} alt="go up button" />
+        <HiChevronDoubleUp />
       </Icon>
     )}
   </>

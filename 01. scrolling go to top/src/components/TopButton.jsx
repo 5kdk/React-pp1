@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { HiChevronDoubleUp } from 'react-icons/hi';
 import useScroll from '../hooks/useScroll';
 import { TOP_POS_TO_START_SHOWING } from '../constants/constants';
-import reactLogo from '../assets/react.svg';
 
 const TopButton = () => {
   const isPassed = useScroll(TOP_POS_TO_START_SHOWING);
@@ -14,7 +14,7 @@ const TopButton = () => {
         onClick={() => {
           window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
         }}>
-        <img src={reactLogo} alt="go up button" />
+        <HiChevronDoubleUp />
       </Icon>
     )
   );
@@ -41,4 +41,5 @@ const Icon = styled.div`
   font-size: 3em;
   cursor: pointer;
   animation: ${glow} 4s infinite;
+  color: #fff;
 `;
