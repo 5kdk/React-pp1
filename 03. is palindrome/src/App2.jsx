@@ -24,7 +24,7 @@ const App = () => {
         <Input name="palindrome-input" ref={inputRef} />
         <Button>Check</Button>
         {submittedStr && (
-          <Result>{`${submittedStr} is ${isPalindrome(submittedStr) ? '' : 'not '}a palindrome`}</Result>
+          <Result>{`${submittedStr} is ${isPalindrome(submittedStr) ? '' : 'not'} a palindrome`}</Result>
         )}
       </Checker>
     </>
