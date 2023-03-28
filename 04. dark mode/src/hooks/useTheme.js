@@ -9,8 +9,10 @@ const useTheme = () => {
   });
 
   const changeTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-    localStorage.setItem('theme', theme);
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
   };
 
   return [theme, changeTheme];
