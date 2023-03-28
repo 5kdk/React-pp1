@@ -1,46 +1,27 @@
-import { useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { BiSun, BiMoon } from 'react-icons/bi';
 import GlobalStyle from './styles/GlobalStyle';
+import useTheme from './hooks/useTheme';
 
 // useState, useEffect, useTheme, theming / CSS variables, adapting based on props
 
-// 로컬스토리지,
-
 const App = () => {
-  const [isDark, setIsDark] = useState(() => {
-    const isLocalDark = window.localStorage.getItem('isDark');
-    const isWindowDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-    return isLocalDark ? JSON.parse(isLocalDark) : isWindowDark;
-  });
-
-  // useEffect(() => {
-  //   const isLocalDark = window.localStorage.getItem('isDark');
-  //   const isWindowDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  //   const initIsDark = isLocalDark ? JSON.parse(isLocalDark) : isWindowDark;
-
-  //   setIsDark(initIsDark);
-  // }, []);
+  const [darkTheme, changeTheme] = useTheme();
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+    <ThemeProvider theme={darkTheme ? darkThemeStyles : lightThemeStyles}>
       <GlobalStyle />
       <Title>Light / Dark Mode - Toggle Button</Title>
-      <Wrapper>
-        <Switch
-          onClick={() => {
-            setIsDark(!isDark);
-          }}
-        />
-        <Background>
-          <IconWrapper>
+      <Wrapper onClick={changeTheme}>
+        <Switch />
+        <IconWrapper>
+          <IconBackground>
             <BiSun />
-          </IconWrapper>
-          <IconWrapper>
+          </IconBackground>
+          <IconBackground>
             <BiMoon />
-          </IconWrapper>
-        </Background>
+          </IconBackground>
+        </IconWrapper>
       </Wrapper>
       <Article>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum optio ab porro magni in sunt ipsam, doloremque
@@ -53,14 +34,14 @@ const App = () => {
 
 export default App;
 
-const lightTheme = {
+const lightThemeStyles = {
   body: {
     backgroundColor: null,
   },
   switch: {
     left: '2px',
   },
-  background: {
+  iconWrapper: {
     backgroundColor: '#3dbf87',
   },
   article: {
@@ -68,14 +49,14 @@ const lightTheme = {
   },
 };
 
-const darkTheme = {
+const darkThemeStyles = {
   body: {
     backgroundColor: '#232323',
   },
   switch: {
     left: '52px',
   },
-  background: {
+  iconWrapper: {
     backgroundColor: '#fc3164',
   },
   article: {
@@ -90,16 +71,16 @@ const Article = styled.article`
   color: ${props => props.theme.article.color};
 `;
 
-const IconWrapper = styled.div`
+const IconBackground = styled.div`
   width: 50%;
   line-height: 50px;
   text-align: center;
   color: #fff;
 `;
 
-const Background = styled.div`
+const IconWrapper = styled.div`
   display: flex;
-  background-color: ${props => props.theme.background.backgroundColor};
+  background-color: ${props => props.theme.iconWrapper.backgroundColor};
   border-radius: 25px;
   box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.75);
   transition: background-color calc(var(--transition-duration) * 1s);
