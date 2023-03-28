@@ -15,7 +15,7 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Open Sans';
     font-weight: 300;
-    background-color: ${props => props.theme.body.backgroundColor}
+    background-color: var(--colors-global-background);
   }
 `;
 

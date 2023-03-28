@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useTheme = () => {
   const [theme, setTheme] = useState(() => {
@@ -9,11 +9,17 @@ const useTheme = () => {
   });
 
   const changeTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-    localStorage.setItem('theme', theme);
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
   };
 
-  return [theme, changeTheme];
+  useEffect(() => {
+    document.body.dataset.theme = theme;
+  }, [theme]);
+
+  return changeTheme;
 };
 
 export default useTheme;

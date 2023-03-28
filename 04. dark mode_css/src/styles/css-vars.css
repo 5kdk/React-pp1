@@ -1,0 +1,13 @@
+body[data-theme='light'] {
+  --colors-global-background: null;
+  --colors-ico-background: #3dbf87;
+  --colors-article: null;
+  --switch-left-position: 2px;
+}
+
+body[data-theme='dark'] {
+  --colors-global-background: #232323;
+  --colors-ico-background: #fc3164;
+  --colors-article: #fff;
+  --switch-left-position: 52px;
+}
