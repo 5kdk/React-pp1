@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const useTheme = () => {
   const [darkTheme, setDarkTheme] = useState(() => {
@@ -10,11 +10,8 @@ const useTheme = () => {
 
   const changeTheme = () => {
     setDarkTheme(!darkTheme);
-  };
-
-  useEffect(() => {
     localStorage.setItem('isDark', darkTheme);
-  }, [darkTheme]);
+  };
 
   return [darkTheme, changeTheme];
 };
