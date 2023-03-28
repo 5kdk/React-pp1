@@ -3,8 +3,6 @@ import { BiSun, BiMoon } from 'react-icons/bi';
 import GlobalStyle from './styles/GlobalStyle';
 import useTheme from './hooks/useTheme';
 
-// useState, useEffect, useTheme, theming / CSS variables, adapting based on props
-
 const App = () => {
   const [darkTheme, changeTheme] = useTheme();
 
