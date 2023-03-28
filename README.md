@@ -1,6 +1,6 @@
 # **👨‍💻👩‍💻 React - Pair Programming 1**
 
-**[서예빈's github](https://github.com/bin000527)**
+**[서예빈's github](https://github.com/bin000527)**  
 **[김동규's github](https://github.com/5kdk)**
 
 <br>
@@ -65,3 +65,4 @@
 
 -   [01. scrolling go to top](01.%20scrolling%20go%20to%20top/README.md)
 -   [02. counter](02.%20counter/README.md)
+-   [03. is palindrome](03.%20is%20palindrome/README.md)
