@@ -1,19 +1,19 @@
 import { useState } from 'react';
 
 const useTheme = () => {
-  const [darkTheme, setDarkTheme] = useState(() => {
-    const isLocalDark = window.localStorage.getItem('isDark');
-    const isWindowDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const [theme, setTheme] = useState(() => {
+    const localTheme = window.localStorage.getItem('theme');
+    const windowTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-    return isLocalDark ? JSON.parse(isLocalDark) : isWindowDark;
+    return localTheme || windowTheme;
   });
 
   const changeTheme = () => {
-    setDarkTheme(!darkTheme);
-    localStorage.setItem('isDark', darkTheme);
+    setTheme(theme === 'light' ? 'dark' : 'light');
+    localStorage.setItem('theme', theme);
   };
 
-  return [darkTheme, changeTheme];
+  return [theme, changeTheme];
 };
 
 export default useTheme;
