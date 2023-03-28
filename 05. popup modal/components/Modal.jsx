@@ -1,23 +1,23 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 
-const Modal = ({ ModalHandler, submitHandler }) => {
+const Modal = ({ toggleModal, submitValue }) => {
   const inputRef = useRef();
 
   return (
     <ModalWrapper>
-      <ModalDimmed onClick={ModalHandler} />
+      <ModalDimmed onClick={toggleModal} />
       <ModalBox>
-        <ModalCloseButton onClick={ModalHandler}>❌</ModalCloseButton>
+        <ModalCloseButton onClick={toggleModal}>❌</ModalCloseButton>
         <h1>Hello!</h1>
         <p>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem eius, qui dignissimos dolore itaque, quas
           saepe laudantium veniam rerum dolores ipsam est? Inventore eum earum nemo libero saepe! Alias, nemo?
         </p>
-        <ModalForm onSubmit={() => submitHandler(inputRef.current.value)}>
+        <ModalForm onSubmit={() => submitValue(inputRef.current.value)}>
           <ModalInput ref={inputRef} />
           <button type="submit">OK</button>
-          <button type="button" onClick={ModalHandler}>
+          <button type="button" onClick={toggleModal}>
             Cancel
           </button>
         </ModalForm>
