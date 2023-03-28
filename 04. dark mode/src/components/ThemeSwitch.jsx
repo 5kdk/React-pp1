@@ -4,7 +4,7 @@ import { BiSun, BiMoon } from 'react-icons/bi';
 
 const ThemeSwitch = ({ onClick }) => (
   <Wrapper onClick={onClick}>
-    <Switch />
+    <Toggle />
     <IconWrapper>
       <Icon>
         <BiSun />
@@ -31,7 +31,7 @@ const IconWrapper = styled.div`
   transition: background-color calc(var(--transition-duration) * 1s);
 `;
 
-const Switch = styled.div`
+const Toggle = styled.div`
   position: absolute;
   top: 2px;
   left: ${props => props.theme.switch.left};
