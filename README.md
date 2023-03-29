@@ -36,6 +36,7 @@
 | commit   | 설명              |
 | -------- | ----------------- |
 | add      | 파일 추가         |
+| move     | 파일 위치 변경    |
 | remove   | 파일 및 기능 삭제 |
 | feat     | 새 기능 추가      |
 | refactor | 리팩토링          |
@@ -63,6 +64,6 @@
 
 ## **⚡ Mission**
 
--   [01. scrolling go to top](01.%20scrolling%20go%20to%20top/README.md)
--   [02. counter](02.%20counter/README.md)
--   [03. is palindrome](03.%20is%20palindrome/README.md)
+- [01. scrolling go to top](01.%20scrolling%20go%20to%20top/README.md)
+- [02. counter](02.%20counter/README.md)
+- [03. is palindrome](03.%20is%20palindrome/README.md)
