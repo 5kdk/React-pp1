@@ -1,12 +1,10 @@
 import { useState, useEffect } from 'react';
-import fetchTabsData from '../../utils/fetchTabData';
+import fetchTabsData from '../utils/fetchTabData';
 
 const useTabs = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tabs, setTabs] = useState([]);
   const [error, setError] = useState(null);
-  
-  const [selectedIdx, setSelectedIdx] = useState(0);
 
   useEffect(() => {
     const initialize = async () => {
@@ -23,7 +21,7 @@ const useTabs = () => {
     initialize();
   }, []);
 
-  return { tabs, error, isLoading, selectedIdx, setSelectedIdx };
+  return { tabs, error, isLoading };
 };
 
 export default useTabs;

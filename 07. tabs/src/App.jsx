@@ -1,13 +1,14 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import useTabs from './hooks/useTabs';
-import spinner from '../public/img/ball-triangle.svg';
 
 const App = () => {
-  const { tabs, error, isLoading, selectedIdx, setSelectedIdx } = useTabs();
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const { tabs, error, isLoading } = useTabs();
 
   if (error) return <p>Error...</p>;
-  if (isLoading) return <Spinner src={spinner} alt="Loading..." />;
+  if (isLoading) return <Spinner src="/ball-triangle.svg" alt="Loading..." />;
 
   return (
     <>
