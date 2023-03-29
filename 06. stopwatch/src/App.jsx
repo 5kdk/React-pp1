@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import useStopwatch from './hooks/useStopwatch';
-import Display from './components/Display';
-import Laps from './components/Laps';
+import { Display, Laps } from './components/index';
 
 const App = () => {
   const {
