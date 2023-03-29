@@ -16,10 +16,8 @@ const Modal = ({ toggleModal, submitValue }) => {
         </p>
         <ModalForm onSubmit={() => submitValue(inputRef.current.value)}>
           <ModalInput ref={inputRef} />
-          <button type="submit">OK</button>
-          <button type="button" onClick={toggleModal}>
-            Cancel
-          </button>
+          <ModalSubmitBtn>OK</ModalSubmitBtn>
+          <ModalCancelBtn onClick={toggleModal}>Cancel</ModalCancelBtn>
         </ModalForm>
       </ModalBox>
     </ModalWrapper>
@@ -60,6 +58,10 @@ const ModalForm = styled.form`
 `;
 
 const ModalInput = styled.input.attrs({ type: 'text' })``;
+
+const ModalSubmitBtn = styled.button.attrs({ type: 'submit' })``;
+
+const ModalCancelBtn = styled.button.attrs({ type: 'button' })``;
 
 const ModalCloseButton = styled.button`
   position: absolute;
