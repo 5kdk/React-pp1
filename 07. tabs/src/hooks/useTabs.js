@@ -7,7 +7,7 @@ const useTabs = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const initialize = async () => {
+    (async () => {
       try {
         setIsLoading(true);
         const data = await fetchTabsData();
@@ -17,8 +17,7 @@ const useTabs = () => {
       } finally {
         setIsLoading(false);
       }
-    };
-    initialize();
+    })();
   }, []);
 
   return { tabs, error, isLoading };
