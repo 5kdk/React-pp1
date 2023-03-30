@@ -6,7 +6,7 @@
     - [**현상**(Facts)](#현상facts)
     - [**발견**(Discovery)](#발견discovery)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned)
-    - [**선언**(Declation)](#선언declation)
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
@@ -30,13 +30,13 @@
 
 ### **현상**(Facts)
 
-- Modal 컴포넌트를 분리하는 것이 코드 복잡도나 가독성 측면에서 더 낫다고 판단했다.
+- Popup 컴포넌트를 분리하는 것이 코드 복잡도나 가독성 측면에서 더 낫다고 판단했다.
 
 <br>
 
 ### **발견**(Discovery)
 
-- 현재 관리 중인 isOpened와 outputValue는 Modal 컴포넌트 뿐만 아니라 루트 컴포넌트(App)에서 관리 중인 하위 요소들도 필요로 하는 상태이다.
+- 현재 관리 중인 isOpened와 outputValue는 Popup 컴포넌트 뿐만 아니라 루트 컴포넌트(App)에서 관리 중인 하위 요소들도 필요로 하는 상태이다.
   <br>
 
 ### **배운점**(Lessons Learned)
@@ -46,7 +46,7 @@
 
 <br>
 
-### **선언**(Declation)
+## **선언**(Declation)
 
 - 가독성과 유지보수성을 위해 컴포넌트를 분리하면 상태 관리가 어려워지므로, 충분히 고려하고 컴포넌트 분리가 필요하다고 생각되면 분리해야겠다.
 
