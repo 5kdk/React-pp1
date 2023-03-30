@@ -6,7 +6,7 @@
     - [**현상**(Facts)](#현상facts)
     - [**발견**(Discovery)](#발견discovery)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned)
-    - [**선언**(Declation)](#선언declation)
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
@@ -43,7 +43,7 @@ If you used to conditionally omit it with onClick={condition && value}, pass onC
 
 <br>
 
-### **선언**(Declation)
+## **선언**(Declation)
 
 - 의미론적인 위치에 알맞은 값이 위치할 수 있도록 코드를 작성해 나아가겠다.
 
