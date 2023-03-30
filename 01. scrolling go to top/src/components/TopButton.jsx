@@ -2,17 +2,16 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { HiChevronDoubleUp } from 'react-icons/hi';
 import useScroll from '../hooks/useScroll';
-import { TOP_POS_TO_START_SHOWING } from '../constants/constants';
 
-const TopButton = () => {
-  const isPassed = useScroll(TOP_POS_TO_START_SHOWING);
+const TopButton = ({ boundary }) => {
+  const yPos = useScroll();
 
   return (
-    isPassed && (
+    yPos >= boundary && (
       <Icon
         role="button"
         onClick={() => {
-          window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
+          window.scrollTo({ top: 100, behavior: 'smooth' });
         }}>
         <HiChevronDoubleUp />
       </Icon>

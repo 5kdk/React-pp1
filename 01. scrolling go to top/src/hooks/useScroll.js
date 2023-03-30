@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { SCROLL_DELAY } from '../constants/constants';
 
-const useScroll = boundary => {
-  const [isPassed, setIsPassed] = useState(false);
+const useScroll = () => {
+  const [yPos, setYPos] = useState(0);
 
   useEffect(() => {
     const scrollHandler = throttle(() => {
-      setIsPassed(window.pageYOffset >= boundary);
+      setYPos(window.pageYOffset);
     }, SCROLL_DELAY);
 
     window.addEventListener('scroll', scrollHandler);
@@ -15,9 +15,9 @@ const useScroll = boundary => {
     return () => {
       window.removeEventListener('scroll', scrollHandler);
     };
-  }, [boundary]);
+  }, []);
 
-  return isPassed;
+  return yPos;
 };
 
 export default useScroll;
