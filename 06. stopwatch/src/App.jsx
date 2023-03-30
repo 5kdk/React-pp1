@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 import { Stopwatch } from './components';
 
-const App = () => {
-  return (
-    <>
-      <Header>Stopwatch</Header>
-      <Stopwatch />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <Header>Stopwatch</Header>
+    <Stopwatch />
+  </>
+);
 
 export default App;
 
