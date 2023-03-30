@@ -14,7 +14,7 @@
     - [**현상**(Facts)](#현상facts-2)
     - [**발견**(Discovery)](#발견discovery-2)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned-2)
-    - [**선언**(Declation)](#선언declation)
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
@@ -167,7 +167,7 @@ const stop = () => {
 
 <br>
 
-### **선언**(Declation)
+## **선언**(Declation)
 
 - 훅을 사용하면서 re-render가 발생하는 상황을 고려하고, re-render가 발생할 때 내부적으로 어떤 동작이 실행되는지 생각하면서 코드를 작성해야겠다.
 
