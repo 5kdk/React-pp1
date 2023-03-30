@@ -10,7 +10,7 @@
     - [**현상**(Facts)](#현상facts-1)
     - [**발견**(Discovery)](#발견discovery-1)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned-1)
-    - [**선언**(Declation)](#선언declation)
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
@@ -89,10 +89,10 @@
 
 <br>
 
-### **선언**(Declation)
+## **선언**(Declation)
 
 - 상태 값을 관리하려고 할 때, 어떤 상황에 re-render가 필요한지, 또 어떤 값을 저장하고 있어야 하는지를 고려해야겠다.
-- `useState`로도 해당 미션을 해결할 수 있지만, useRef 처럼 re-rander를 발생시키지 않는 훅을 필요시 적극 활용하도록 해야겠다.
+- `useState`로도 해당 미션을 해결할 수 있지만, useRef 처럼 re-render를 발생시키지 않는 훅을 필요시 적극 활용하도록 해야겠다.
 
 <br>
 
