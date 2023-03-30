@@ -22,7 +22,7 @@
     - [**현상**(Facts)](#현상facts-4)
     - [**발견**(Discovery)](#발견discovery-4)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned-4)
-    - [**선언**(Declation)](#선언declation)
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
@@ -115,7 +115,8 @@ const useTheme = () => {
 
 - initializer를 사용하면 렌더링 될 때마다 함수 객체를 생성하지만, 초기 렌더링 시에만 함수를 호출한다.
 - 함수가 실행 된 후 반환 값으로 초기 값을 설정하기 때문에 상태에 따른 초기 렌더링이 가능하다.
-- [useState lazy initialization](https://kentcdodds.com/blog/use-state-lazy-initialization-and-function-updates)
+
+> [useState lazy initialization](https://kentcdodds.com/blog/use-state-lazy-initialization-and-function-updates)
 
 <br>
 
@@ -286,7 +287,7 @@ useEffect(() => {
 
 - `useEffect`를 사용하면 초기 렌더링 후, 그리고 dependency의 값이 변경될 때마다 함수가 실행된다.
 
-### **선언**(Declation)
+## **선언**(Declation)
 
 - `useState`를 사용할 때, lazy initialization이 필요하면 useState의 인수로 해당 함수 로직를 전달하자.
 - 훅을 사용할 때 훅이 필요한 상황인지 충분히 생각하고 사용하자.
