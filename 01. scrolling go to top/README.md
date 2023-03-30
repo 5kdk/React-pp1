@@ -41,9 +41,9 @@
 return (
   <Icon
     role="button"
-    visible={isPassed}
+    visible={yPos >= boundary}
     onClick={() => {
-      window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
+      window.scrollTo({ top: 100, behavior: 'smooth' });
     }}>
     <HiChevronDoubleUp />
   </Icon>
@@ -55,11 +55,11 @@ return (
 
 return (
   <>
-    {isPassed && (
+    {yPos >= boundary && (
       <Icon
         role="button"
         onClick={() => {
-          window.scrollTo({ top: 100, left: 100, behavior: 'smooth' });
+          window.scrollTo({ top: 100, behavior: 'smooth' });
         }}>
         <HiChevronDoubleUp />
       </Icon>
@@ -68,16 +68,16 @@ return (
 );
 ```
 
-- `props` 를 이용하면 `visible` 프로퍼티에 `true` / `false` 값을 넘겨주면 된다.
-- 따라서 조건부 렌더링을 이용하는 것보다 `props`를 이용할 때 가독성이 좋다고 판단했다.
+- props 를 이용하면 `visible` 프로퍼티에 `true` / `false` 값을 넘겨주면 된다.
+- 따라서 조건부 렌더링을 이용하는 것보다 props를 이용할 때 가독성이 좋다고 판단했다.
 - 그러나 props를 이용해 display를 설정하려면 해당 컴포넌트가 이미 Dom tree에 존재해야 한다.
 
 <br>
 
 ### **배운점** (Lessons Learned)
 
-- 다른 컴포넌트(Title, Section)가 포함된 App에서 상태를 관리하면 상태 변경 시 다른 컴포넌트들 까지 re-render가 발생한다.
-- 이미지 요소의 상위 컴포넌트(TopButton)를 생성하면 컴포넌트 내부에서 상태 관리를 할 수 있으며, 조건부 렌더링을 통해 Icon 컴포넌트가 생성되기 전에 렌더링 여부를 결정할 수 있다.
+- 다른 컴포넌트(`<Title>`, `<Section>`)가 포함된 App에서 상태를 관리하면 상태 변경 시 다른 컴포넌트들 까지 re-render가 발생한다.
+- 이미지 요소의 상위 컴포넌트(`<TopButton>`)를 생성하면 컴포넌트 내부에서 상태 관리를 할 수 있으며, 조건부 렌더링을 통해 `<Icon>` 컴포넌트가 생성되기 전에 렌더링 여부를 결정할 수 있다.
 
 <br>
 
@@ -85,20 +85,20 @@ return (
 
 ### **현상**(Facts)
 
-- `isPassed` 상태는 `TopButton`(Icon)의 `display`에만 영향을 준다. 그러나 `isPassed` 상태가 변경될 때마다 `Title`과 `Section` 요소도 함께 리렌더링된다.
+- `yPos` 상태는 `<TopButton>`(Icon)의 `display`에만 영향을 준다. 그러나 `yPos` 상태가 변경될 때마다 `<Title>`과 `<Section>` 요소도 함께 리렌더링된다.
 
 <br>
 
 ### **발견**(Discovery)
 
 - 조건부 렌더링 방식을 선택했다면 부모 컴포넌트에서 자식 컴포넌트의 렌더링 여부를 결정해야하므로 상위 컴포넌트에서 상태를 가지고 있어야 했다.
-- 현재 우리는 `props`를 이용하여 `display`를 결정한다. 따라서 `TopButton`(하위) 컴포넌트가 있다면 직접 상태를 가지고 있으며 `TopButton`만 렌더링된다.
+- 현재 우리는 props를 이용하여 display를 결정한다. 따라서 `<TopButton>`(하위) 컴포넌트가 있다면 직접 상태를 가지고 있으며 `<TopButton>`만 렌더링된다.
 
 <br>
 
 ### **배운점**(Lessons Learned)
 
-- 화면을 re-rander하는 React hook들을 사용할때, re-rander가 필요하지 않은 컴포넌트들에게 최대한 영향이 가지 않도록 구조를 짜는 방법에 대해 고민할 수 있었다.
+- 화면을 re-render하는 React hook들을 사용할때, re-render가 필요하지 않은 컴포넌트들에게 최대한 영향이 가지 않도록 구조를 짜는 방법에 대해 고민할 수 있었다.
 
 <br>
 
