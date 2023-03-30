@@ -49,23 +49,26 @@
 
 - 상태를 이용하여 state를 변경할 때 set 함수의 인수로 값을 전달할 수도 있고, updater 함수를 전달할 수 있다.
 - 10ms 마다 이전 상태인 `elapsedTime`을 이용하여 값을 새롭게 계산하여 `setElapsedTime`함수에 전달하였다.
-  ```js
-  setInterval(() => {
-    // ...
-    setElapsedTime(elapsedTime + (lastIntervalTime.current - startTime));
-  }, 10);
-  ```
-  <br>
+
+<br>
 
 ### **발견**(Discovery)
 
-- setElapsedTime 함수를 10ms 마다 호출하므로 elapsedTime 상태 값도 10ms 마다 변경될 것으로 예상했지만, console 창에 출력하여 stop 버튼을 누르기 전까지 elapsedTime이 유지되는 것을 확인하였다.
+```js
+setInterval(() => {
+  // ...
+  setElapsedTime(elapsedTime + (lastIntervalTime.current - startTime));
+}, 10);
+```
+
+- 위 코드에서 `setElapsedTime`의 인수로 새로운 `elapsedTime` 계산 값 대신 updater 함수를 주면 정상적으로 동작하지 않는 것을 확인하였다.
 
 <br>
 
 ### **배운점**(Lessons Learned)
 
-- 아래와 같이 updater 함수를 setElapsedTime의 인수로 넘기면 updater함수의 인수로 직전 상태를 전달하기 때문에 elapsedTime은 고정되지 않고 10ms마다 바뀐다.
+- 아래와 같이 `updater` 함수를 `setElapsedTime`의 인수로 넘기면 `updater`함수의 인수로 직전 상태를 전달하기 때문에 `elapsedTime`은 고정되지 않고 10ms마다 바뀐다.
+- 따라서 `lastIntervalTime.current - startTime`의 값도 증가하고 `elapsedTime` 값도 증가하기 때문에 정상적으로 동작하지 않는다.
 
   ```js
   setInterval(() => {
@@ -74,7 +77,10 @@
   }, 10);
   ```
 
-- 업데이트된 직전 값을 사용하려면 인수로 직전값을 받아오는 updater 함수를 사용하면 되지만, 고정값을 이용하려면 값 자체를 set 함수의 인수로 넘기면 된다.
+- 반대로 `setElapsedTime` 의 인수로 새롭게 계산된 값을 전달하는 경우에는 `elapsedTime` 값이 고정되어 있다.
+- 그 이유는 한 번 호출된 `setInterval`은 처음 호출되었을 때의 `elapsedTime`을 참조하고 있으므로 그 값은 고정되어 있다.
+- 따라서 `lastIntervalTime.current - startTime`의 값만 증가하며 정상적으로 `stopwatch`가 동작하는 것을 확인할 수 있다.
+
   <br>
 
 ## **state와 useState, useRef**
