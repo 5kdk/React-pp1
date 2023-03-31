@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import TopButton from './components/TopButton';
-import { Y_POS_TO_START_SHOWING } from './constants/constants';
+import { BUTTON_START_Y } from './constants/constants';
 
 const App = () => (
   <>
@@ -10,7 +10,7 @@ const App = () => (
     <Section>Section 2</Section>
     <Section>Section 3</Section>
     <Section>Section 4</Section>
-    <TopButton boundary={Y_POS_TO_START_SHOWING} />
+    <TopButton boundary={BUTTON_START_Y} />
   </>
 );
 

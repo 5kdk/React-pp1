@@ -3,7 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { HiChevronDoubleUp } from 'react-icons/hi';
 import useScroll from '../hooks/useScroll';
 
-const TopButton = ({ boundary }) => {
+const TopButton = ({ boundary = 300 }) => {
   const yPos = useScroll();
 
   return (
@@ -12,9 +12,8 @@ const TopButton = ({ boundary }) => {
         role="button"
         onClick={() => {
           window.scrollTo({ top: 100, behavior: 'smooth' });
-        }}>
-        <HiChevronDoubleUp />
-      </Icon>
+        }}
+      />
     )
   );
 };
@@ -32,7 +31,7 @@ const glow = keyframes`
   }
 `;
 
-const Icon = styled.div`
+const Icon = styled(HiChevronDoubleUp)`
   position: fixed;
   left: 50%;
   bottom: 20px;
