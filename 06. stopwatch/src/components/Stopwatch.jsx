@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import useStopwatch from '../hooks/useStopwatch';
-import { Display, Laps } from './index';
+import { StopwatchTime, StopwatchLaps } from './index';
 
 const Stopwatch = () => {
   const {
@@ -10,7 +10,7 @@ const Stopwatch = () => {
 
   return (
     <StopwatchWrapper>
-      <Display elapsedTime={elapsedTime} />
+      <StopwatchTime elapsedTime={elapsedTime} />
       {isStart ? (
         <>
           <Button onClick={stop}>Stop</Button>
@@ -18,13 +18,13 @@ const Stopwatch = () => {
         </>
       ) : (
         <>
-          <Button onClick={() => start(Date.now())}>Start</Button>
+          <Button onClick={start}>Start</Button>
           <Button onClick={reset} disabled={!elapsedTime}>
             Reset
           </Button>
         </>
       )}
-      {laps.length !== 0 && <Laps laps={laps} />}
+      {laps.length !== 0 && <StopwatchLaps laps={laps} />}
     </StopwatchWrapper>
   );
 };

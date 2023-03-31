@@ -5,20 +5,29 @@ const useStopwatch = () => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [laps, setLaps] = useState([]);
 
-  const lastIntervalTime = useRef(0);
-  const intervalId = useRef(null);
+  const lastTimerTime = useRef(0);
+  const timerId = useRef(null);
 
-  const start = startTime => {
-    setIsStart(true);
-    intervalId.current = setInterval(() => {
-      lastIntervalTime.current = Date.now();
-      setElapsedTime(elapsedTime + (lastIntervalTime.current - startTime));
+  const start = () => {
+    const startTime = Date.now();
+    // let startTime = Date.now();
+
+    timerId.current = setInterval(() => {
+      lastTimerTime.current = Date.now();
+      setElapsedTime(elapsedTime + (lastTimerTime.current - startTime));
+      // const diff = lastTimerTime.current - startTime;
+      // setElapsedTime(elapsedTime => elapsedTime + diff);
+      // startTime = lastTimerTime.current;
     }, 10);
+
+    setIsStart(true);
   };
 
   const stop = () => {
-    clearInterval(intervalId.current);
-    setElapsedTime(elapsedTime + (Date.now() - lastIntervalTime.current));
+    clearInterval(timerId.current);
+    setElapsedTime(elapsedTime + (Date.now() - lastTimerTime.current));
+    // const diff = Date.now() - lastTimerTime.current;
+    // setElapsedTime(elapsedTime => elapsedTime + (Date.now() - lastTimerTime.current));
     setIsStart(false);
   };
 

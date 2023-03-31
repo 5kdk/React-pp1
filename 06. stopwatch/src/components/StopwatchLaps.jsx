@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { LapItem } from './index';
 
-const Laps = ({ laps }) => (
+const StopwatchLaps = ({ laps }) => (
   <LapList>
     <div>Laps</div>
     <div>Time</div>
@@ -12,7 +12,7 @@ const Laps = ({ laps }) => (
   </LapList>
 );
 
-export default Laps;
+export default StopwatchLaps;
 
 const LapList = styled.div`
   display: grid;
