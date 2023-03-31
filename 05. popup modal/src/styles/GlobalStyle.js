@@ -17,6 +17,10 @@ const GlobalStyle = createGlobalStyle`
     font-weight: 300;
     text-align: center;
   }
+
+  button{
+    cursor: pointer;
+  }
 `;
 
 export default GlobalStyle;

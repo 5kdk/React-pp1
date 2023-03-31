@@ -1,37 +1,6 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 
-const Popup = ({ toggleHandler, outPutHandler }) => {
-  const inputRef = useRef();
-
-  return (
-    <PopupWrapper>
-      <PopupDimmed onClick={toggleHandler} />
-      <PopupBox>
-        <PopupCloseButton onClick={toggleHandler}>❌</PopupCloseButton>
-        <h1>Hello!</h1>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem eius, qui dignissimos dolore itaque, quas
-          saepe laudantium veniam rerum dolores ipsam est? Inventore eum earum nemo libero saepe! Alias, nemo?
-        </p>
-        <PopupForm
-          onSubmit={e => {
-            e.preventDefault();
-
-            outPutHandler(inputRef.current.value);
-            toggleHandler();
-          }}>
-          <PopupInput ref={inputRef} />
-          <PopupSubmitBtn>OK</PopupSubmitBtn>
-          <PopupCancelBtn onClick={toggleHandler}>Cancel</PopupCancelBtn>
-        </PopupForm>
-      </PopupBox>
-    </PopupWrapper>
-  );
-};
-
-export default Popup;
-
 const PopupWrapper = styled.div`
   position: absolute;
   top: 0;
@@ -77,3 +46,34 @@ const PopupCloseButton = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
+
+const Popup = ({ closePopup, setOutputValue }) => {
+  const inputRef = useRef();
+
+  return (
+    <PopupWrapper>
+      <PopupDimmed onClick={closePopup} />
+      <PopupBox>
+        <PopupCloseButton onClick={closePopup}>❌</PopupCloseButton>
+        <h1>Hello!</h1>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem eius, qui dignissimos dolore itaque, quas
+          saepe laudantium veniam rerum dolores ipsam est? Inventore eum earum nemo libero saepe! Alias, nemo?
+        </p>
+        <PopupForm
+          onSubmit={e => {
+            e.preventDefault();
+
+            setOutputValue(inputRef.current.value);
+            closePopup();
+          }}>
+          <PopupInput ref={inputRef} />
+          <PopupSubmitBtn>OK</PopupSubmitBtn>
+          <PopupCancelBtn onClick={closePopup}>Cancel</PopupCancelBtn>
+        </PopupForm>
+      </PopupBox>
+    </PopupWrapper>
+  );
+};
+
+export default Popup;

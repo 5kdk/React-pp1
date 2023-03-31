@@ -3,19 +3,16 @@ import Popup from './Popup';
 
 const PopupController = () => {
   const [isOpened, setisOpened] = useState(false);
-  const [outPutValue, setOutPutValue] = useState('');
+  const [outputValue, setOutputValue] = useState('');
 
-  const toggleHandler = () => setisOpened(!isOpened);
-
-  const outPutHandler = value => {
-    setOutPutValue(value);
-  };
+  const openPopup = () => setisOpened(true);
+  const closePopup = () => setisOpened(false);
 
   return (
     <>
-      <button onClick={toggleHandler}>toggle popup</button>
-      {outPutValue && <p>{`from Popup : ${outPutValue}`}</p>}
-      {isOpened && <Popup toggleHandler={toggleHandler} outPutHandler={outPutHandler} />}
+      <button onClick={openPopup}>toggle popup</button>
+      {outputValue && <p>{`from Popup : ${outputValue}`}</p>}
+      {isOpened && <Popup closePopup={closePopup} setOutputValue={setOutputValue} />}
     </>
   );
 };
