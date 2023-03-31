@@ -11,7 +11,7 @@ const App = () => {
     <ThemeProvider theme={themes[theme]}>
       <GlobalStyle />
       <Title>Light / Dark Mode - Toggle Button</Title>
-      <ThemeSwitch onClick={changeTheme} />
+      <ThemeSwitch changeTheme={changeTheme} />
       <Article>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum optio ab porro magni in sunt ipsam, doloremque
         minima, itaque sapiente consequatur, repellat velit voluptatum accusantium aperiam. Nostrum sunt reprehenderit
@@ -55,15 +55,15 @@ const themes = {
   },
 };
 
+const Title = styled.h1`
+  color: #db5b33;
+  font-weight: 300;
+  text-align: center;
+`;
+
 const Article = styled.article`
   width: 960px;
   margin: 50px auto 0;
   font-size: 1.5em;
   color: ${props => props.theme.article.color};
-`;
-
-const Title = styled.h1`
-  color: #db5b33;
-  font-weight: 300;
-  text-align: center;
 `;

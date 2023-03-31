@@ -22,19 +22,12 @@ const ThemeSwitch = () => {
   );
 };
 
-const Icon = styled.div`
-  width: 50%;
-  line-height: 50px;
-  text-align: center;
-  color: #fff;
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  background-color: var(--colors-ico-background);
-  border-radius: 25px;
-  box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.75);
-  transition: background-color calc(var(--transition-duration) * 1s);
+const Wrapper = styled.div`
+  position: relative;
+  width: 100px;
+  height: 50px;
+  margin: 0 auto;
+  cursor: pointer;
 `;
 
 const Toggle = styled.div`
@@ -48,12 +41,19 @@ const Toggle = styled.div`
   transition: left calc(var(--transition-duration) * 1s);
 `;
 
-const Wrapper = styled.div`
-  position: relative;
-  width: 100px;
-  height: 50px;
-  margin: 0 auto;
-  cursor: pointer;
+const IconWrapper = styled.div`
+  display: flex;
+  background-color: var(--colors-ico-background);
+  border-radius: 25px;
+  box-shadow: 2px 2px 5px 0 rgba(50, 50, 50, 0.75);
+  transition: background-color calc(var(--transition-duration) * 1s);
+`;
+
+const Icon = styled.div`
+  width: 50%;
+  line-height: 50px;
+  text-align: center;
+  color: #fff;
 `;
 
 export default ThemeSwitch;

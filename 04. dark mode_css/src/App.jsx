@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 import ThemeSwitch from './components/ThemeSwitch';
 
+const Title = styled.h1`
+  color: #db5b33;
+  font-weight: 300;
+  text-align: center;
+`;
+
+const Article = styled.article`
+  width: 960px;
+  margin: 50px auto 0;
+  font-size: 1.5em;
+  color: var(--colors-article);
+`;
+
 const App = () => (
   <>
     <Title>Light / Dark Mode - Toggle Button</Title>
@@ -13,16 +26,3 @@ const App = () => (
   </>
 );
 export default App;
-
-const Article = styled.article`
-  width: 960px;
-  margin: 50px auto 0;
-  font-size: 1.5em;
-  color: var(--colors-article);
-`;
-
-const Title = styled.h1`
-  color: #db5b33;
-  font-weight: 300;
-  text-align: center;
-`;
