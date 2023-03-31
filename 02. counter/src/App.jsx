@@ -8,23 +8,33 @@ const App = () => {
   return (
     <>
       <Title>Counter</Title>
-      <Constainer>
-        <Button role="button" onClick={counter > 0 ? () => setCounter(counter - 1) : undefined}>
+      <Container>
+        <Button onClick={() => setCounter(counter > 0 ? counter - 1 : counter)}>
           <AiOutlineMinus />
         </Button>
         <Counter>{counter}</Counter>
-        <Button role="button" onClick={() => setCounter(counter + 1)}>
+        <Button onClick={() => setCounter(counter + 1)}>
           <AiOutlinePlus />
         </Button>
-      </Constainer>
+      </Container>
     </>
   );
 };
 export default App;
 
-const Counter = styled.div`
-  width: 50px;
+const Title = styled.h1`
+  color: #db5b33;
+  font-weight: 300;
   text-align: center;
+`;
+
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 300px;
+  margin: 20px auto;
+  font-size: 24px;
 `;
 
 const Button = styled.button`
@@ -38,17 +48,7 @@ const Button = styled.button`
   cursor: pointer;
 `;
 
-const Constainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 300px;
-  margin: 20px auto;
-  font-size: 24px;
-`;
-
-const Title = styled.h1`
-  color: #db5b33;
-  font-weight: 300;
+const Counter = styled.div`
+  width: 50px;
   text-align: center;
 `;
