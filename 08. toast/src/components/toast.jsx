@@ -1,56 +1,22 @@
-import styled, { keyframes } from 'styled-components';
-import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import toastListState from '../recoil/atom/toastListState';
-
-const enterFromRight = keyframes`
-  from {
-    transform: translate3D(100%, 0, 0);
-  }
-
-  to {
-    transform: translate3D(0, 0, 0);
-  }
-`;
-
-const enterFromLeft = keyframes`
-  from {
-    transform: translate3D(-100%, 0, 0);
-  }
-
-  to {
-    transform: translate3D(0, 0, 0);
-  }
-`;
-
-const dismissToRight = keyframes`
-  from {
-    transform: translate3D(0, 0, 0);
-  }
-
-  to {
-    transform: translate3D(110%, 0, 0);
-  }
-`;
-
-const dismissToLeft = keyframes`
-  from {
-    transform: translate3D(0, 0, 0);
-  }
-
-  to {
-    transform: translate3D(-110%, 0, 0);
-  }
-`;
+import { AiFillCheckCircle, AiFillWarning, AiFillInfoCircle, AiFillExclamationCircle } from 'react-icons/ai';
+import useToasts from '../hooks/useToasts';
+import ToastColor from '../styles/ToastColor';
+import { dismissToRight, dismissToLeft, enterFromRight, enterFromLeft } from '../styles/Animation';
 
 const animations = {
   dismiss: {
-    left: dismissToLeft,
-    right: dismissToRight,
+    'bottom-right': dismissToRight,
+    'top-right': dismissToRight,
+    'bottom-left': dismissToLeft,
+    'top-left': dismissToLeft,
   },
   enter: {
-    left: enterFromLeft,
-    right: enterFromRight,
+    'bottom-right': enterFromRight,
+    'top-right': enterFromRight,
+    'bottom-left': enterFromLeft,
+    'top-left': enterFromLeft,
   },
 };
 
@@ -66,20 +32,8 @@ const Container = styled.div`
   padding-left: 10px;
   border-radius: 4px;
   box-shadow: 0 2px 5px 0 rgb(0 0 0 / 26%);
-  background-color: ${props => {
-    const colorMap = {
-      success: '#5cb85c',
-      error: '#d9534f',
-      info: '#5bc0de',
-      warning: '#f0ad4e',
-    };
-    return colorMap[props.type];
-  }};
-  animation: ${props =>
-      props.isDismiss
-        ? animations.dismiss[props.position.split('-')[1]]
-        : animations.enter[props.position.split('-')[1]]}
-    0.3s both;
+  background-color: ${props => ToastColor[props.type]};
+  animation: ${props => animations[props.isDismiss ? 'dismiss' : 'enter'][props.position]} 0.3s both;
 `;
 
 const ToastCloseButton = styled.button`
@@ -95,61 +49,33 @@ const ToastCloseButton = styled.button`
   cursor: pointer;
 `;
 
-const typeIcoMap = {
-  success: 'fa-circle-check',
-  error: 'fa-triangle-exclamation',
-  info: 'fa-circle-info',
-  warning: 'fa-circle-exclamation',
+const Icon = {
+  success: <AiFillCheckCircle />,
+  error: <AiFillWarning />,
+  info: <AiFillInfoCircle />,
+  warning: <AiFillExclamationCircle />,
 };
 
-const Toast = ({ position, toastInfo }) => {
-  const { id, type, message, autoClose, autoCloseDelay, closeOnClick } = toastInfo;
-  const [toastList, setToastList] = useRecoilState(toastListState);
+const Toast = ({ toastInfo }) => {
+  const { id, type, message, position, autoClose, autoCloseDelay, closeOnClick } = toastInfo;
+  const { remove } = useToasts();
   const [isDismiss, setIsDismiss] = useState(false);
 
-  const removeToast = (position, id) => {
-    setToastList({ ...toastList, [position]: toastList[position].filter(toast => toast.id !== id) });
-  };
-
   useEffect(() => {
-    if (autoClose) {
-      setTimeout(() => {
-        setIsDismiss(true);
-      }, autoCloseDelay);
-    }
+    if (autoClose) setTimeout(() => setIsDismiss(true), autoCloseDelay);
   }, []);
-
-  // if (newToast.autoClose) {
-  //   setTimeout(() => {
-  //     setToastList(toastList => ({
-  //       ...toastList,
-  //       [position]: toastList[position].filter(toast => toast.id !== newToast.id),
-  //     }));
-  //   }, newToast.autoCloseDelay);
-  // }
 
   return (
     <Container
-      key={id}
       type={type}
       position={position}
       isDismiss={isDismiss}
-      onAnimationEnd={e => {
-        if (isDismiss) {
-          removeToast(position, id);
-        }
+      onAnimationEnd={() => {
+        if (isDismiss) remove(id);
       }}>
-      <i className={`fa-solid ${typeIcoMap[type]}`}></i>
+      {Icon[type]}
       <span>{message}</span>
-      {closeOnClick && (
-        <ToastCloseButton
-          className="toast-close"
-          onClick={() => {
-            setIsDismiss(true);
-          }}>
-          ×
-        </ToastCloseButton>
-      )}
+      {closeOnClick && <ToastCloseButton onClick={() => setIsDismiss(true)}>×</ToastCloseButton>}
     </Container>
   );
 };
