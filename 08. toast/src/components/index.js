@@ -1,5 +1,5 @@
-import ToastCreater from './ToastCreater';
+import ToastCreator from './ToastCreator';
 import Toasts from './Toasts';
 import Toast from './Toast';
 
-export { ToastCreater, Toasts, Toast };
+export { ToastCreator, Toasts, Toast };

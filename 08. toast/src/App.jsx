@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { ToastCreater, Toasts } from './components';
+import { ToastCreator, Toasts } from './components';
 
-// overflow hidden 포탈로 옮기기
 const App = () => (
   <>
     <Title>Toast</Title>
-    <ToastCreater />
+    <ToastCreator />
     <Toasts />
   </>
 );
