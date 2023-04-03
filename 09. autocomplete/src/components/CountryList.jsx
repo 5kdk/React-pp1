@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import styled from 'styled-components';
 import parse from 'html-react-parser';
 import countryCode from '../constants/countryCode';
@@ -41,47 +41,51 @@ const CountryName = styled.span`
 `;
 
 const CountryList = ({ userInput, setSelectedCountry }) => {
-  const [flagIdx, setFlagIdx] = useState(null);
+  const [focusingIdx, setFocusingIdx] = useState(null);
   const focusRef = useAutoFocus();
 
-  const userInputRegex = new RegExp(userInput, 'i');
-  const filtercountryCode = countryCode.filter(([, country]) => userInputRegex.test(country));
+  const userInputRegex = useMemo(() => new RegExp(userInput, 'i'), [userInput]);
+  const filtercountryCode = useMemo(
+    () => countryCode.filter(([, country]) => userInputRegex.test(country)),
+    [userInputRegex]
+  );
+
+  const selectCountry = (selectCountry, idx) => {
+    setSelectedCountry(selectCountry);
+    setFocusingIdx(idx);
+  };
+
+  const handleArrowKey = e => {
+    e.preventDefault();
+
+    const lastIdx = filtercountryCode.length - 1;
+
+    if (e.key === 'ArrowUp') setFocusingIdx(focusingIdx === 0 ? lastIdx : focusingIdx - 1);
+    if (e.key === 'ArrowDown' || e.key === 'Tab') setFocusingIdx(focusingIdx === lastIdx ? 0 : focusingIdx + 1);
+  };
 
   return (
-    <Container className="autocomplete-suggest-list">
+    <Container>
       {filtercountryCode.length > 0 ? (
         filtercountryCode.map(([flag, country], idx) => (
           <Country
             key={flag}
-            ref={flagIdx === idx ? focusRef : null}
+            ref={focusingIdx === idx ? focusRef : null}
             tabIndex="0"
             onClick={() => {
-              setSelectedCountry([flag, country]);
-              setFlagIdx(idx);
+              selectCountry([flag, country], idx);
             }}
-            onKeyDown={e => {
-              e.preventDefault();
-
-              if (e.key === 'ArrowUp') setFlagIdx(idx === 0 ? filtercountryCode.length - 1 : flagIdx - 1);
-              if (e.key === 'ArrowDown' || e.key === 'Tab')
-                setFlagIdx(flagIdx >= filtercountryCode.length - 1 ? 0 : flagIdx + 1);
-
-              if (e.key === 'Enter') {
-                setSelectedCountry([flag, country]);
-                setFlagIdx(idx);
-              }
-            }}>
-            <span className="country">
-              <Flag src={`./src/assets/images/flag/${flag}.svg`} />
-              <CountryName>{parse(country.replace(userInputRegex, match => `<b>${match}</b>`))}</CountryName>
-            </span>
+            onKeyUp={e => {
+              if (e.key === 'Enter') selectCountry([flag, country], idx);
+            }}
+            onKeyDown={handleArrowKey}>
+            <Flag src={`./src/assets/images/flag/${flag}.svg`} />
+            <CountryName>{parse(country.replace(userInputRegex, match => `<b>${match}</b>`))}</CountryName>
           </Country>
         ))
       ) : (
-        <li tabIndex="0">
-          <span className="country">
-            <span>No results matched {`"${userInput}"`}</span>
-          </span>
+        <li>
+          <span>No results matched {`"${userInput}"`}</span>
         </li>
       )}
     </Container>
