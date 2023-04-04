@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-const DURATION = 500;
-
 const Container = styled.div`
   position: relative;
   width: ${props => props.width};
@@ -10,8 +8,7 @@ const Container = styled.div`
   overflow: hidden;
   opacity: ${props => (props.width ? 1 : 0)};
 `;
-/* carousel 요소의 width 셋팅이 완료될 때까지 감춘다. */
-// opacity: 0;
+
 const CarouselSlides = styled.div`
   --currentSlide: ${props => props.currentSlide};
   --duration: ${props => props.duration};
@@ -49,51 +46,54 @@ const NextBtn = styled(CarouselController)`
   right: 0;
 `;
 
-const Carousel = ({ imagesUrl }) => {
+const FIRST_SLIDE_INDEX = 1;
+const DURATION_MS = 500;
+
+const Carousel = ({ images }) => {
   const [offsetWidth, setOffsetWidth] = useState('');
-  const [currentSlide, setCurrentSlide] = useState(1);
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(FIRST_SLIDE_INDEX);
   const [isMoving, setIsMoving] = useState(false);
 
+  const slideCount = images.length;
+  const lastImageUrl = images.at(-1);
+  const firstImageUrl = images.at(0);
+
+  const setCarouselWidth = e => {
+    setOffsetWidth(`${e.target.offsetWidth}px`);
+  };
+
+  const moveToPrevSlide = () => {
+    setIsMoving(true);
+    setCurrentSlideIndex(currentSlideIndex - 1);
+  };
+
+  const moveToNextSlide = () => {
+    setIsMoving(true);
+    setCurrentSlideIndex(currentSlideIndex + 1);
+  };
+
+  const handleTransitionEnd = () => {
+    setIsMoving(false);
+    if (currentSlideIndex === 0) setCurrentSlideIndex(slideCount);
+    if (currentSlideIndex === slideCount + 1) setCurrentSlideIndex(FIRST_SLIDE_INDEX);
+  };
+
   return (
-    <Container
-      width={offsetWidth}
-      onLoad={e => {
-        setOffsetWidth(`${e.target.offsetWidth}px`);
-      }}>
+    <Container width={offsetWidth} onLoad={setCarouselWidth}>
       <CarouselSlides
-        currentSlide={currentSlide}
-        duration={isMoving ? DURATION : 0}
-        onTransitionEnd={() => {
-          setIsMoving(false);
-          if (currentSlide === 0) setCurrentSlide(imagesUrl.length);
-          if (currentSlide === imagesUrl.length + 1) setCurrentSlide(1);
-        }}>
-        <MovieImg src={imagesUrl[imagesUrl.length - 1]} />
-        {imagesUrl.map(url => (
-          <MovieImg key={url} src={url} />
+        currentSlide={currentSlideIndex}
+        duration={isMoving ? DURATION_MS : 0}
+        onTransitionEnd={handleTransitionEnd}>
+        <MovieImg src={lastImageUrl} />
+        {images.map((url, idx) => (
+          <MovieImg key={`${url}-${idx}`} src={url} />
         ))}
-        <MovieImg src={imagesUrl[0]} />
-        {/* <MovieImg src="./src/movies/movie-4.jpg" />
-        <MovieImg src="./src/movies/movie-1.jpg" />
-        <MovieImg src="./src/movies/movie-2.jpg" />
-        <MovieImg src="./src/movies/movie-3.jpg" />
-        <MovieImg src="./src/movies/movie-4.jpg" />
-        <MovieImg src="./src/movies/movie-1.jpg" /> */}
+        <MovieImg src={firstImageUrl} />
       </CarouselSlides>
-      <PrevBtn
-        onClick={() => {
-          setIsMoving(true);
-          setCurrentSlide(currentSlide - 1);
-        }}
-        disabled={isMoving}>
+      <PrevBtn onClick={moveToPrevSlide} disabled={isMoving}>
         &laquo;
       </PrevBtn>
-      <NextBtn
-        onClick={() => {
-          setIsMoving(true);
-          setCurrentSlide(currentSlide + 1);
-        }}
-        disabled={isMoving}>
+      <NextBtn onClick={moveToNextSlide} disabled={isMoving}>
         &raquo;
       </NextBtn>
     </Container>
