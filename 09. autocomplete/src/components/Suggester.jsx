@@ -1,8 +1,12 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+
+import { debounce } from 'lodash';
 
 import CountryInput from './CountryInput';
 import CountryList from './CountryList';
+
+import countryCode from '../constants/countryCode';
 
 const Container = styled.div`
   margin-top: 5px;
@@ -20,6 +24,20 @@ const Dropdown = styled.div`
 
 const Suggester = ({ setSelectedCountry }) => {
   const [userInput, setUserInput] = useState('');
+  const [filteredCountryCode, setFilteredCountryCode] = useState(countryCode);
+
+  const userInputRegex = useRef(null);
+
+  const filterCountryCode = useCallback(() => {
+    userInputRegex.current = new RegExp(userInput, 'i');
+    setFilteredCountryCode(countryCode.filter(([, country]) => userInputRegex.current.test(country)));
+  }, [userInput]);
+
+  const debounceFiltering = useMemo(() => debounce(filterCountryCode, 200), [filterCountryCode]);
+  
+  useEffect(() => {
+    debounceFiltering();
+  }, [debounceFiltering]);
 
   return (
     <Container
@@ -27,8 +45,13 @@ const Suggester = ({ setSelectedCountry }) => {
         e.stopPropagation();
       }}>
       <Dropdown>
-        <CountryInput setUserInput={setUserInput} />
-        <CountryList userInput={userInput} setSelectedCountry={setSelectedCountry} />
+        <CountryInput userInput={userInput} onChange={e => setUserInput(e.target.value)} />
+        <CountryList
+          userInput={userInput}
+          userInputRegex={userInputRegex.current}
+          filteredCountryCode={filteredCountryCode}
+          setSelectedCountry={setSelectedCountry}
+        />
       </Dropdown>
     </Container>
   );

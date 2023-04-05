@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { debounce } from 'lodash';
 
 const Search = styled.input.attrs({ type: 'text' })`
   width: 400px;
@@ -15,11 +14,10 @@ const Search = styled.input.attrs({ type: 'text' })`
   color: #666;
 `;
 
-const CountryInput = ({ setUserInput }) => (
+const CountryInput = ({userInput,onChange }) => (
   <Search
-    onInput={debounce(e => {
-      setUserInput(e.target.value);
-    }, 200)}
+    value={userInput}
+    onChange={onChange}
     placeholder="Select a country"
     autoFocus
   />

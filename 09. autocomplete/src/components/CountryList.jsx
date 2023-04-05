@@ -40,15 +40,9 @@ const CountryName = styled.span`
   padding-left: 10px;
 `;
 
-const CountryList = ({ userInput, setSelectedCountry }) => {
+const CountryList = ({ userInput, userInputRegex, filteredCountryCode, setSelectedCountry }) => {
   const [focusingIdx, setFocusingIdx] = useState(null);
   const focusRef = useAutoFocus();
-
-  const userInputRegex = useMemo(() => new RegExp(userInput, 'i'), [userInput]);
-  const filtercountryCode = useMemo(
-    () => countryCode.filter(([, country]) => userInputRegex.test(country)),
-    [userInputRegex]
-  );
 
   const selectCountry = (selectCountry, idx) => {
     setSelectedCountry(selectCountry);
@@ -58,7 +52,7 @@ const CountryList = ({ userInput, setSelectedCountry }) => {
   const handleArrowKey = e => {
     e.preventDefault();
 
-    const lastIdx = filtercountryCode.length - 1;
+    const lastIdx = filteredCountryCode.length - 1;
 
     if (e.key === 'ArrowUp') setFocusingIdx(focusingIdx === 0 ? lastIdx : focusingIdx - 1);
     if (e.key === 'ArrowDown' || e.key === 'Tab') setFocusingIdx(focusingIdx === lastIdx ? 0 : focusingIdx + 1);
@@ -66,8 +60,8 @@ const CountryList = ({ userInput, setSelectedCountry }) => {
 
   return (
     <Container>
-      {filtercountryCode.length > 0 ? (
-        filtercountryCode.map(([flag, country], idx) => (
+      {filteredCountryCode.length > 0 ? (
+        filteredCountryCode.map(([flag, country], idx) => (
           <Country
             key={flag}
             ref={focusingIdx === idx ? focusRef : null}
