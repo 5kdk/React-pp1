@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-
+import { debounce } from 'lodash';
+import { useController } from 'react-hook-form';
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
 
 const Container = styled.div`
@@ -119,26 +120,37 @@ const inputInfo = {
   },
 };
 
-const InputContainer = ({ name, register, fieldState }) => {
-  const { isDirty, error } = fieldState;
+const InputContainer = ({ name, control }) => {
+  const {
+    field,
+    fieldState: { isDirty, error },
+  } = useController({
+    name,
+    control,
+    defaultValue: '',
+    rules: { required: true },
+  });
 
   return (
     <Container>
-      <Input type={inputInfo[name].type} name={name} {...register(name)} autoComplete="off" />
+      <Input
+        type={inputInfo[name].type}
+        name={name}
+        onChange={debounce(e => {
+          field.onChange(e);
+        }, 200)}
+        autoComplete="off"
+      />
       <Label>{inputInfo[name].label}</Label>
       <Bar />
       {isDirty && !error && <IconSuccess />}
-      {error && (
+      {isDirty && error && (
         <>
           <IconError />
           <Error>{error.message}</Error>
         </>
       )}
     </Container>
-    // <InputContainer name="userid" register={register} fieldState={getFieldState('userid')} />
-    //   <InputContainer name="name" register={register} fieldState={getFieldState('name')} />
-    //   <InputContainer name="password" register={register} fieldState={getFieldState('password')} />
-    //   <InputContainer name="passwordConfirm" register={register} fieldState={getFieldState('passwordConfirm')} />
   );
 };
 
