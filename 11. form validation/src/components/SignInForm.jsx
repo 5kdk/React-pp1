@@ -170,38 +170,14 @@ const LinkContainer = styled.div`
   }
 `;
 
-const schema = {
-  signin: z
-    .object({
-      userid: z.string().email({ message: '이메일 형식에 맞게 입력해주세요.' }),
-      password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
-    })
-    .required(),
+const schema = z
+  .object({
+    userid: z.string().email({ message: '이메일 형식에 맞게 입력해주세요.' }),
+    password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
+  })
+  .required();
 
-  signup: z
-    .object({
-      name: z.string().min(1, { message: '이름을 입력하세요.' }),
-      userid: z.string().email({ message: '이메일 형식에 맞게 입력해주세요.' }),
-      password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
-      passwordConfirm: z.string(),
-    })
-    .required()
-    .refine(data => data.password === data.passwordConfirm, {
-      message: '패스워드가 일치하지 않습니다.',
-      path: ['passwordConfirm'],
-    }),
-};
-
-const formText = {
-  signin: {
-    title: 'SIGN IN',
-  },
-  signup: {
-    title: 'SIGN UP',
-  },
-};
-
-const SignForm = ({ type }) => {
+const SignInForm = () => {
   const { success } = useToasts();
 
   const {
@@ -209,17 +185,17 @@ const SignForm = ({ type }) => {
     handleSubmit,
     formState: { isValid, dirtyFields, errors },
   } = useForm({
-    resolver: zodResolver(schema[type]),
+    resolver: zodResolver(schema),
     mode: 'onChange',
   });
 
   const onSubmit = () => {
-    success({ message: 'SignIn Successfully' });
+    success({ message: 'SignUp Successfully' });
   };
 
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
-      <Title>{formText[type].title}</Title>
+      <Title>SIGN IN</Title>
       <InputContainer>
         <Input name="signin-userid" {...register('userid')} autoComplete="off" />
         <Label htmlFor="signin-userid">email</Label>
@@ -233,74 +209,26 @@ const SignForm = ({ type }) => {
         )}
       </InputContainer>
 
-      {type === 'signin' ? (
-        <>
-          <InputContainer>
-            <Input type="password" id="signin-password" {...register('password')} autoComplete="off" />
-            <Label htmlFor="signin-password">Password</Label>
-            <Bar />
-            {dirtyFields.password && !errors.password && <IconSuccess />}
-            {errors.password && (
-              <>
-                <IconError />
-                <Error>{errors.password.message}</Error>
-              </>
-            )}
-          </InputContainer>
-        </>
-      ) : (
-        <>
-          <InputContainer>
-            <Input id="signup-name" {...register('name')} autoComplete="off" />
-            <Label htmlFor="signup-name">name</Label>
-            <Bar />
-            {dirtyFields.name && !errors.name && <IconSuccess />}
-            {errors.name && (
-              <>
-                <IconError />
-                <Error>{errors.name.message}</Error>
-              </>
-            )}
-          </InputContainer>
-          <InputContainer>
-            <Input type="password" id="signup-password" {...register('password')} autoComplete="off" />
-            <Label htmlFor="signup-password">Password</Label>
-            <Bar />
-            {dirtyFields.password && !errors.password && <IconSuccess />}
-            {errors.password && (
-              <>
-                <IconError />
-                <Error>{errors.password.message}</Error>
-              </>
-            )}
-          </InputContainer>
-          <InputContainer>
-            <Input type="password" id="signup-password-confirm" {...register('passwordConfirm')} autoComplete="off" />
-            <Label htmlFor="signup-password-confirm">Confirm Password</Label>
-            <Bar />
-            {dirtyFields.passwordConfirm && !errors.passwordConfirm && <IconSuccess />}
-            {errors.passwordConfirm && (
-              <>
-                <IconError />
-                <Error>{errors.passwordConfirm.message}</Error>
-              </>
-            )}
-          </InputContainer>
-        </>
-      )}
-      <Button disabled={!isValid}>{formText[type].title}</Button>
-      {type === 'signin' ? (
-        <LinkContainer className="link">
-          Not a member?
-          <Link to="/signup">Sign up now</Link>
-        </LinkContainer>
-      ) : (
-        <LinkContainer className="link">
-          Already a member? <Link to="/">Sign in</Link>
-        </LinkContainer>
-      )}
+      <InputContainer>
+        <Input type="password" id="signin-password" {...register('password')} autoComplete="off" />
+        <Label htmlFor="signin-password">Password</Label>
+        <Bar />
+        {dirtyFields.password && !errors.password && <IconSuccess />}
+        {errors.password && (
+          <>
+            <IconError />
+            <Error>{errors.password.message}</Error>
+          </>
+        )}
+      </InputContainer>
+
+      <Button disabled={!isValid}>SING IN</Button>
+      <LinkContainer>
+        Not a member?
+        <Link to="/signup">Sign up now</Link>
+      </LinkContainer>
     </Container>
   );
 };
 
-export default SignForm;
+export default SignInForm;
