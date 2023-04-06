@@ -23,33 +23,9 @@ const Toasts = () => {
     'top-right': useRecoilValue(TopRightToastListState),
     'top-left': useRecoilValue(TopLeftToastListState),
   };
-  // const BottomRightToastList = useRecoilValue(BottomRightToastListState);
-  // const BottomLeftToastList = useRecoilValue(BottomLeftToastListState);
-  // const TopRightToastList = useRecoilValue(TopRightToastListState);
-  // const TopLeftToastList = useRecoilValue(TopLeftToastListState);
 
   return (
     <>
-      {/* <ToastContainer position="bottom-right">
-        {BottomRightToastList.map(toast => (
-          <Toast key={toast.id} toastInfo={toast} />
-        ))}
-      </ToastContainer>
-      <ToastContainer position="bottom-left">
-        {BottomLeftToastList.map(toast => (
-          <Toast key={toast.id} toastInfo={toast} />
-        ))}
-      </ToastContainer>
-      <ToastContainer position="top-right">
-        {TopRightToastList.map(toast => (
-          <Toast key={toast.id} toastInfo={toast} />
-        ))}
-      </ToastContainer>
-      <ToastContainer position="top-left">
-        {TopLeftToastList.map(toast => (
-          <Toast key={toast.id} toastInfo={toast} />
-        ))}
-      </ToastContainer> */}
       {createPortal(
         Object.keys(toastPosition).map(
           position =>

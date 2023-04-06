@@ -119,12 +119,12 @@ const ToastCreator = () => {
 
     const type = e.nativeEvent.submitter.name;
 
-    const { message, position, autoClose, autoCloseDelay, closeOnClick } = e.nativeEvent.target;
+    const { message, position, autoCloseDelay, closeOnClick } = e.nativeEvent.target;
 
     toastHandlers[type]({
       message: message.value,
       position: position.value,
-      autoClose: autoClose.checked,
+      autoClose,
       autoCloseDelay: autoCloseDelay.value,
       closeOnClick: closeOnClick.checked,
     });
