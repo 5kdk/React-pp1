@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
-const signInSchema = z
+const signin = z
   .object({
     userid: z.string().email({ message: '이메일 형식에 맞게 입력해주세요.' }),
     password: z.string().regex(/^[A-Za-z0-9]{6,12}$/, { message: '영문 또는 숫자를 6~12자 입력하세요.' }),
   })
   .required();
 
-const signUpSchema = signInSchema
+const signup = signin
   .extend({
     name: z.string().min(1, { message: '이름을 입력하세요.' }),
     passwordConfirm: z.string(),
@@ -18,8 +18,8 @@ const signUpSchema = signInSchema
   });
 
 const schema = {
-  signin: signInSchema,
-  signup: signUpSchema,
+  signin,
+  signup,
 };
 
 export default schema;
