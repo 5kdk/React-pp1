@@ -12,7 +12,7 @@
 
 ## **요구사항**
 
--
+- onLoad ( offsetWidth 설정 )
 
 <br>
 
@@ -43,3 +43,11 @@
 <br>
 
 ---
+
+**1️⃣0️⃣ Carousel Slider 수업 내용 정리 👀**
+
+```js
+{
+  [lastImageUrl, ...images, firstImageUrl].map((url, idx) => <MovieImg key={`${url}-${idx}`} src={url} />);
+}
+```

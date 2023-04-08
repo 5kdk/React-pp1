@@ -144,3 +144,14 @@ useEffect(() => {
 <br>
 
 ---
+
+**0️⃣7️⃣ Tabs 수업 내용 정리 👀**
+
+App을 감싸는 컴포넌트들 ( ex: Provider, router ) 위치 : App vs Main
+
+- 일관성 유지하기 ( App에 위치하는 것이 좋음. )
+  render props : 컴포넌트를 return하는 함수 ( ex: fallbackRender )
+
+react-query
+
+- 캐싱 기능

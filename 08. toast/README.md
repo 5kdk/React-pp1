@@ -158,7 +158,7 @@
 
 ### **배운점**(Lessons Learned)
 
-- recoil 라이브러리에서 파생상태를 관리하기 위해 selector를 제공한다.
+- 하나의 state로 복잡한 객체로 관리하거나 여러 개의 상태로 관리하지 않고, recoil 라이브러리에서 제공하는 selector를 이용하여 편리하게 파생상태를 관리할 수 있다.
 - <br>
 
 ## **선언**(Declation)
@@ -168,3 +168,12 @@
 <br>
 
 ---
+
+**0️⃣8️⃣ Toast 수업 내용 정리 👀**
+
+- switch문은 scope를 만든다.
+- ToastCreator <- Toasts : ToastCreator은 Toasts를 알아야 하지만, Toasts는 ToastCreator를 몰라도 된다.
+  ( 응집도 높이고, 결합도는 낮추기 )
+  => 연결고리는 toastHandlers 하나!
+  - 화살표는 단방향이고 얇을 수록(연결고리가 없을수록) 좋음
+- toast와 모달(페이지에 종속적이지 않은 ex: 광고)을 사용할 때 주로 portal 사용
