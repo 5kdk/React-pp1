@@ -16,4 +16,4 @@ const fetchTabsData = () => new Promise(resolve => {
   ]), 1000);
 });
 
-export default fetchTabsData
+export default fetchTabsData;

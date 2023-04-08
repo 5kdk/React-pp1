@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import fetchTabsData from '../utils/fetchTabData';
+import fetchTabsData from '../utils/fetchTabsData';
 
 const useTabs = () => {
   const [isLoading, setIsLoading] = useState(false);
