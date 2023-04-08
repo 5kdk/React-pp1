@@ -3,27 +3,6 @@ import styled from 'styled-components';
 
 import useTabs from '../hooks/useTabs';
 
-const TabsMain = () => {
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const tabs = useTabs();
-
-  return (
-    <Tabs tabsLen={tabs.length}>
-      <nav>
-        {tabs.map(({ title }, idx) => (
-          <Tab key={`tab-${idx}`} onClick={() => setSelectedIdx(idx)}>
-            {title}
-          </Tab>
-        ))}
-        <Glider selectedIdx={selectedIdx} />
-      </nav>
-      <TabContent>{tabs[selectedIdx]?.content}</TabContent>
-    </Tabs>
-  );
-};
-
-export default TabsMain;
-
 const Tabs = styled.div`
   --tab-width: 200;
   --tabs-length: ${props => props.tabsLen};
@@ -67,3 +46,24 @@ const TabContent = styled.div`
   background-color: #fff;
   padding: 20px;
 `;
+
+const TabsMain = () => {
+  const [selectedIdx, setSelectedIdx] = useState(0);
+  const tabs = useTabs();
+
+  return (
+    <Tabs tabsLen={tabs.length}>
+      <nav>
+        {tabs.map(({ title }, idx) => (
+          <Tab key={`tab-${idx}`} onClick={() => setSelectedIdx(idx)}>
+            {title}
+          </Tab>
+        ))}
+        <Glider selectedIdx={selectedIdx} />
+      </nav>
+      <TabContent>{tabs[selectedIdx].content}</TabContent>
+    </Tabs>
+  );
+};
+
+export default TabsMain;
