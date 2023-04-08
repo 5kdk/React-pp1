@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 
 import useToasts from '../library/toast/hooks/useToasts';
 
-import InputContainer from '../components/InputContainer';
 import SubmitButton from '../components/SubmitButton';
+import InputContainer from '../components/InputContainer';
 
 import schema from '../schema/signSchema';
 
@@ -59,9 +59,8 @@ const LinkContainer = styled.div`
 const SignIn = () => {
   const { success } = useToasts();
 
-  const { control, handleSubmit, formState } = useForm({
+  const { control, handleSubmit, formState, trigger } = useForm({
     resolver: zodResolver(schema.signin),
-    mode: 'onChange',
   });
 
   const onSubmit = () => {
@@ -71,8 +70,8 @@ const SignIn = () => {
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
       <Title>SIGN IN</Title>
-      <InputContainer name="userid" control={control} />
-      <InputContainer name="password" control={control} />
+      <InputContainer name="userid" control={control} trigger={trigger} />
+      <InputContainer name="password" control={control} trigger={trigger} />
       <SubmitButton disabled={formState.isValid} content="SIGN IN" />
       <LinkContainer>
         Not a member?

@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
 
 import { useForm } from 'react-hook-form';
 
@@ -60,16 +59,9 @@ const LinkContainer = styled.div`
 const SignUp = () => {
   const { success } = useToasts();
 
-  const { control, watch, handleSubmit, formState, trigger } = useForm({
+  const { control, handleSubmit, formState, trigger } = useForm({
     resolver: zodResolver(schema.signup),
-    mode: 'onChange',
   });
-
-  const password = watch('password');
-
-  useEffect(() => {
-    trigger('passwordConfirm');
-  }, [password, trigger]);
 
   const onSubmit = () => {
     success({ message: 'SignUp Successfully' });
@@ -78,10 +70,10 @@ const SignUp = () => {
   return (
     <Container onSubmit={handleSubmit(onSubmit)}>
       <Title>SIGN UP</Title>
-      <InputContainer name="userid" control={control} />
-      <InputContainer name="name" control={control} />
-      <InputContainer name="password" control={control} />
-      <InputContainer name="passwordConfirm" control={control} />
+      <InputContainer name="userid" control={control} trigger={trigger} />
+      <InputContainer name="name" control={control} trigger={trigger} />
+      <InputContainer name="password" control={control} trigger={trigger} />
+      <InputContainer name="passwordConfirm" control={control} trigger={trigger} />
       <SubmitButton disabled={formState.isValid} content="SIGN UP" />
       <LinkContainer>
         Already a member? <Link to="/">Sign in</Link>

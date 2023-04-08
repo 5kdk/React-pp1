@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { debounce } from 'lodash';
 import { useController } from 'react-hook-form';
 import { AiFillCheckCircle, AiFillCloseCircle } from 'react-icons/ai';
+import { useRef } from 'react';
 
 const Container = styled.div`
   position: relative;
@@ -120,7 +121,7 @@ const inputInfo = {
   },
 };
 
-const InputContainer = ({ name, control }) => {
+const InputContainer = ({ name, control, trigger }) => {
   const {
     field,
     fieldState: { isDirty, error },
@@ -128,22 +129,30 @@ const InputContainer = ({ name, control }) => {
     name,
     control,
     defaultValue: '',
-    rules: { required: true },
   });
+
+  const debounceTrigger = useRef(
+    debounce(() => {
+      trigger(name);
+      if (name === 'password') trigger('passwordConfirm');
+    }, 500)
+  );
 
   return (
     <Container>
       <Input
         type={inputInfo[name].type}
         name={name}
-        onChange={debounce(e => {
+        value={field.value}
+        onChange={e => {
           field.onChange(e);
-        }, 200)}
+          debounceTrigger.current();
+        }}
         autoComplete="off"
       />
       <Label>{inputInfo[name].label}</Label>
       <Bar />
-      {isDirty && !error && <IconSuccess />}
+      {isDirty && !error && error !== undefined && <IconSuccess />}
       {isDirty && error && (
         <>
           <IconError />
