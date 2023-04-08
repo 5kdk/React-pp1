@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import Article from './Article';
-
 import { BsArrowRightCircle } from 'react-icons/bs';
+
+import Article from './Article';
 
 // prettier-ignore
 const MainPage = styled.main`
@@ -13,7 +13,7 @@ const MainPage = styled.main`
     
   > ${Toggle} {
       transform: rotate(180deg);
-  } ` : ''}
+  } ` : ''}  
 `;
 
 const Toggle = styled(BsArrowRightCircle)`

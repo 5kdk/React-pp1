@@ -5,7 +5,7 @@ import Main from './components/Main';
 
 const Container = styled.div`
   position: relative;
-  overflow-x: hidden; /* 가로 scroll bar 방지 */
+  overflow-x: hidden;
   width: 100%;
   height: 100%;
 `;
