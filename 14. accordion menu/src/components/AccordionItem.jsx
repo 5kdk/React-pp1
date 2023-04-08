@@ -75,9 +75,9 @@ const Container = styled.article`
     }` : ''}
 `;
 
-const AccordionItem = ({ id, title, subMenu, active, toggleMenu, isLastChild }) => (
+const AccordionItem = ({ title, subMenu, active, toggleMenu, isLastChild }) => (
   <Container active={active} isLastChild={isLastChild}>
-    <Title onClick={() => toggleMenu(id)}>
+    <Title onClick={toggleMenu}>
       <ArrowIcon />
       {title}
     </Title>
