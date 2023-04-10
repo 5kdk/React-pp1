@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import { DatePicker, Calendar } from './components';
-// import calendarOpenState from './recoil/atoms/calendarOpenState';
+import calendarIsOpenedState from './recoil/atoms/calendarIsOpenedState';
 
-const App = () => {
-  // const isOpend = useRecoilValue(calendarOpenState);
-  const [isOpened, setIsOpened] = useState(false);
+const Title = styled.h1`
+  color: var(--red);
+`;
 
-  return (
-    <>
-      <DatePicker setIsOpend={setIsOpened} />
-      <Calendar isOpened={isOpened} setIsOpend={setIsOpened} />
-    </>
-  );
-};
+const App = () => (
+  <>
+    <Title>DatePicker</Title>
+    <DatePicker />
+    <Calendar />
+  </>
+);
 
 export default App;
