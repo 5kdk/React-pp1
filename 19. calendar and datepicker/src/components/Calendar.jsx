@@ -158,7 +158,7 @@ const Calendar = ({ calendarSize = '350' }) => {
   return (
     <>
       {calendarIsOpened && (
-        <Container calendarSize={`${calendarSize}px`}>
+        <Container calendarSize={`${calendarSize}px`} onClick={e => e.stopPropagation()}>
           <Navigation>
             <ArrowLeft onClick={goToPrevMonth} />
             <Title>
