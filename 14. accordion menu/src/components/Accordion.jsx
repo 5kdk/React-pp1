@@ -13,7 +13,7 @@ const AccordionList = styled.div`
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
 `;
 
-const initialize = {
+const initializer = {
   multiple(menuList) {
     return menuList.reduce((ids, { id, isOpen }) => (isOpen ? [...ids, id] : ids), []);
   },
@@ -25,9 +25,9 @@ const initialize = {
 const Accordion = ({ menuList = [], showMultiple = false }) => {
   const type = showMultiple ? 'multiple' : 'nonMultiple';
 
-  const [activeMenuIds, setActiveMenuIds] = useState(initialize[type](menuList));
+  const [activeMenuIds, setActiveMenuIds] = useState(initializer[type](menuList));
 
-  const toggleMenu = {
+  const menuToggler = {
     multiple(id) {
       setActiveMenuIds(activeMenuIds =>
         activeMenuIds.includes(id) ? activeMenuIds.filter(_id => _id !== id) : [...activeMenuIds, id]
@@ -48,7 +48,7 @@ const Accordion = ({ menuList = [], showMultiple = false }) => {
             subMenu={subMenu}
             active={activeMenuIds.includes(id)}
             toggleMenu={() => {
-              toggleMenu[type](id);
+              menuToggler[type](id);
             }}
             isLastChild={id === menuList.at(-1).id}
           />
