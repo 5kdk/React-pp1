@@ -1,5 +1,5 @@
-import React from 'react';
+import TreeView from './components/TreeView';
 
-const App = () => {};
+const App = () => <TreeView />;
 
 export default App;
