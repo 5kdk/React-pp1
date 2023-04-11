@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import AccordionItem from './AccordionItem';
 
@@ -21,14 +21,14 @@ const initialize = (showMultiple, menuList) =>
 const Accordion = ({ menuList = [], showMultiple = false }) => {
   const [activeMenuIds, setActiveMenuIds] = useState(initialize(showMultiple, menuList));
 
-  const toggleMenu = useCallback(id => {
+  const toggleMenu = useMemo(() => {
     if (showMultiple) {
-      setActiveMenuIds(activeMenuIds =>
-        activeMenuIds.includes(id) ? activeMenuIds.filter(_id => _id !== id) : [...activeMenuIds, id]
-      );
-    } else {
-      setActiveMenuIds(activeMenuIds => (activeMenuIds.includes(id) ? [] : [id]));
+      return id =>
+        setActiveMenuIds(activeMenuIds =>
+          activeMenuIds.includes(id) ? activeMenuIds.filter(_id => _id !== id) : [...activeMenuIds, id]
+        );
     }
+    return id => setActiveMenuIds(activeMenuIds => (activeMenuIds.includes(id) ? [] : [id]));
   }, []);
 
   return (
