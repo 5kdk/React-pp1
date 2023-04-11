@@ -1,28 +1,15 @@
-# **0. 미션명**
+# **13. tic tac toe**
 
-- [**0. 미션명**](#0-미션명)
-  - [**요구사항**](#요구사항)
+- [**13. tic tac toe**](#13-tic-tac-toe)
   - [**상태와 파생상태**](#상태와-파생상태)
     - [**현상**(Facts)](#현상facts)
     - [**발견**(Discovery)](#발견discovery)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned)
-    - [**선언**(Declation)](#선언declation)
-
-<br>
-
-- tictactoe 아이템 버튼 onClick 핸들러에서 `if (item !== '' || isTicTacToe) return;` 대신 disabled 쓰는 거에 대해서 어떻게 생각하세요????? ㅎ
-- 그럼 인수로 item 안넘겨도 되어서.....좋을 것 같은뎁
-
-## **요구사항**
-
--
+  - [**선언**(Declation)](#선언declation)
 
 <br>
 
 ## **상태와 파생상태**
-
-- isPlaying: 게임이 진행 중인지 ( isTicTacToe와 isDraw 모두 false이면 isPlaying은 True이다. )
--
 
 ### **현상**(Facts)
 
@@ -83,9 +70,9 @@ const isPlaying = !(isTicTacToe || isDraw);
 
 <br>
 
-### **선언**(Declation)
+## **선언**(Declation)
 
--
+- 상태와 파생 상태를 정확히 이해하고, 상태를 적극적으로 활용하여 유용한 값(상태를 활용한 파생 상태)을 만들어 불필요한 상태 사용을 최소화하자.
 
 <br>
 
