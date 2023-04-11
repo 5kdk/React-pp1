@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Nav from './components/Nav';
-import Main from './components/Main';
+import ArticleContainer from './components/ArticleContainer';
 
 const Container = styled.div`
   position: relative;
   overflow-x: hidden;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 `;
 
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
   return (
     <Container>
       <Nav isOpened={isOpened} />
-      <Main isOpened={isOpened} setIsOpened={setIsOpened} />
+      <ArticleContainer isOpened={isOpened} setIsOpened={setIsOpened} />
     </Container>
   );
 };

@@ -5,12 +5,8 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Open Sans';
     font-weight: 300;
-    min-height: 100vh;
+    height: 100%;
     margin: 0;
-  }
-  
-  #root{
-    height: 100vh;
   }
 
   nav,

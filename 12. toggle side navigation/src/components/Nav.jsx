@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 // prettier-ignore
 const NavBar = styled.nav`
   left: -300px;
