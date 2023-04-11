@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { useRecoilState } from 'recoil';
-import { DatePicker, Calendar } from './components';
-import calendarIsOpenedState from './recoil/atoms/calendarIsOpenedState';
+import { DatePicker } from './components';
 
 const Title = styled.h1`
   color: var(--red);
@@ -10,8 +8,8 @@ const Title = styled.h1`
 const App = () => (
   <>
     <Title>DatePicker</Title>
-    <DatePicker />
-    <Calendar />
+    <DatePicker pickerId="1" />
+    <DatePicker pickerId="2" />
   </>
 );
 
