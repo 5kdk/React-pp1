@@ -12,6 +12,12 @@
 
 ## **요구사항**
 
+- mode vs trigger
+<!-- 이거 가져옴 -->
+
+- Link 컴포넌트 안쓰고 a 태그 사용하면 새로 고침(?) 때문에 toast 제거됨.
+- 폼 하나로 통합하면 폼필드 값들이 유지됨. ( 그대로 옮겨감..아마도 diff 때문 ...? )
+
 -
 
 <br>
@@ -56,3 +62,72 @@
   // https://www.developerway.com/posts/debouncing-in-react 
   
   maybe 회고록 -->
+
+- 문제 SignForm vs. SignIn, SignUp
+
+```jsx
+const signTypeMap = {
+  signin: {
+    title: 'SIGN IN',
+    fields: ['userid', 'password'],
+    content: 'Not a member?',
+    link: '/signup',
+    linkcontent: 'Sign up now',
+  },
+  signup: {
+    title: 'SIGN UP',
+    fields: ['userid', 'name', 'password', 'passwordConfirm'],
+    content: 'Already a member?',
+    link: '/',
+    linkcontent: 'Sign in',
+  },
+};
+
+const SignForm = ({ type }) => {
+  const { success } = useToasts();
+
+  const { control, watch, handleSubmit, formState, trigger, reset } = useForm({
+    resolver: zodResolver(schema[type]),
+    mode: 'onChange',
+  });
+
+  const { title, fields, content, link, linkcontent } = signTypeMap[type];
+
+  const password = watch('password');
+
+  useEffect(() => {
+    const obj = fields.reduce((acc, cur) => {
+      acc[cur] = '';
+      return acc;
+    }, {});
+
+    reset(obj);
+  }, [fields, reset]);
+
+  useEffect(() => {
+    trigger('passwordConfirm');
+  }, [password, trigger]);
+
+  const onSubmit = () => {
+    success({ message: 'SignUp Successfully' });
+  };
+
+  return (
+    <Container onSubmit={handleSubmit(onSubmit)}>
+      <Title>{title}</Title>
+      {fields.map(field => (
+        <InputContainer key={`${type}-${field}`} name={field} control={control} />
+      ))}
+      <SubmitButton disabled={formState.isValid} content={title} />
+      <LinkContainer>
+        {content}
+        {<Link to={link}>{linkcontent}</Link>}
+      </LinkContainer>
+    </Container>
+  );
+};
+
+export default SignForm;
+```
+
+**1️⃣1️⃣ Form Validation 수업 내용 정리 👀**
