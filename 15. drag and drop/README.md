@@ -1,8 +1,7 @@
-# **0. 미션명**
+# **15. drag and drop 🪅**
 
-- [**0. 미션명**](#0-미션명)
-  - [**요구사항**](#요구사항)
-  - [**over 처리**](#over-처리)
+- [**15. drag and drop 🪅**](#15-drag-and-drop-)
+  - [**over 처리에 대한 고민**](#over-처리에-대한-고민)
     - [**현상**(Facts)](#현상facts)
     - [**발견**(Discovery)](#발견discovery)
     - [**배운점**(Lessons Learned)](#배운점lessons-learned)
@@ -10,71 +9,92 @@
 
 <br>
 
-// ----- 상태로 관리할 것. -----( 고민 중.. )
-// 1. 순위 상태
-
-// 2. over되고 있는 요소
-// => ( : 드래그 상태로 다른 요소들 위로 지나갈 때 바닐라에서는 over 클래스 붙여줬었는데, 지금은 props로? )
-
-// 3. 드래그 하고 있는 요소 ( => 상태관리가 필요하다고 생각했는데 드래그 시작할 때는 리렌더링 필요없으니까 그냥 ref 로 관리하면 될 듯 )
-
-## **요구사항**
-
--
-
-<br>
-
-## **over 처리**
+## **over 처리에 대한 고민**
 
 ### **현상**(Facts)
 
-- dragTarget이 dropTarget위를 통과 중이면 dropTarget은 over되어 배경색이 바뀌어야 한다.
+- `dragTarget`이 `dropTarget`위를 통과 중이면 `dropTarget`은 over되어 배경색이 바뀌어야 하기 때문에 다양한 drag 이벤트들을 다뤄주어야 했다.
 
-- over되고 있는 dropTarget요소를 상태로 관리하였다.
-  <br>
+<br>
 
 ### **발견**(Discovery)
 
-- onDragEnter 이벤트가 발생하면 overTargetIdx를 해당 요소의 idx로 설정했다.
-- onDragLeave 이벤트가 발생하면 overTargetIdx를 null로 설정했다.
-- 위와 같이 구현하였더니, 다른 dropTarget을 통과 중일 때 항상 overTargetIdx가 null인 문제를 발견했다.
+- over되고 있는 dropTarget 요소를 상태로 관리했지만, 다른 `dropTarget`을 통과중일 때 항상 `overTargetIdx`가 `null`이 되는 문제를 발견했다. (dragEnter 이벤트가 발생한 후에 dragLeave 이벤트가 발생했기 때문에)
 
-  ➡️ dragEnter이벤트가 발생한 후에 dragLeave 이벤트가 발생했기 때문에 항상 overTargetIdx 상태가 null이 된다.
+  ```jsx
+  // onDragEnter 이벤트가 발생하면 `overTargetIdx`를 해당 요소의 `idx`로 설정
+  // onDragLeave 이벤트가 발생하면 `overTargetIdx`를 `null`로 설정
 
-1. dragLeave 이벤트 대신 drop 이벤트가 발생했을 때 overTargetIdx를 null로 설정
+  onDragEnter={() => setOverTargetIdx(idx)}
+  onDragLeave={() => setOverTargetIdx(null)}
+  ```
 
-   ```js
-   onDragEnter={() => setOverTargetIdx(idx)}
-   onDrop={() => {
-      // ...
-      setOverTargetIdx(null);
-    }}
+<br>
 
-   ```
+- Solution 1 - dragLeave 이벤트 대신 drop 이벤트
 
-   - dragTarget이 다른 dropTarget위로 지나갈 때에는 잘 동작하는 것처럼 보인다.
-   - 그러나 Draggable List 밖으로 벗어났을 때, over된 요소가 유지되는 것을 확인할 수 있다.
+  ```jsx
+  onDragEnter={() => setOverTargetIdx(idx)}
+  onDrop={() => {
+    // ...
+    setOverTargetIdx(null);
+  }}
+  ```
 
-2. onDragLeave 이벤트에서 update 함수 사용
+  - `dragTarget`이 다른 `dropTarget`위로 지나갈 때에는 잘 동작하는 것처럼 보이지만, Draggable List 밖으로 벗어났을 때, over된 요소가 유지되는 것을 확인할 수 있다.
 
-```js
-onDragLeave={() => setOverTargetIdx(overTarget => (overTarget === idx ? null : overTarget))}
+<br>
+
+- Solution 2 - onDragLeave 이벤트에서 update 함수 사용
+
+  ```jsx
+  onDragLeave={() => setOverTargetIdx(overTarget => (overTarget === idx ? null : overTarget))}
+  ```
+
+  - dragLeave 이벤트가 발생했을 때 직전 `overTargetIdx` 상태값을 확인하고, 현재 `idx`와 같은 값이라면 (다른 요소로 dragEnter 이벤트가 발생하지 않은 경우) `null`로 설정하도록 수정하였다.
+  - 만약 해당 요소의 `idx`와 `overTargetIdx`가 다른 값이라면 `dragTarget`이 다른 요소 위를 통과중이므로` overTarget` 그대로 유지할 수 있었다.
+
+<br>
+
+- 위와 같이 `<Swappable>`컴포넌트에서 `overTarget` 상태를 관리할 때, `overTarget`이 변경될 때마다 하위 컴포넌트들 전체에 re-render가 발생했다.
+- 하위 컴포넌트 `<Draggable>`에서 각각 `isOvered` 상태를 관리하여 상태 변경시 해당 컴포넌트만 re-render 가능하다.
+
+```jsx
+const Draggable = ({ value, handleDragStart, swap, isCorrect }) => {
+  const [isOvered, setIsOvered] = useState(false);
+
+  return (
+    <Container
+      draggable="true"
+      over={isOvered}
+      onDragStart={handleDragStart}
+      onDragEnter={() => setIsOvered(true)}
+      onDragLeave={() => setIsOvered(false)}
+      onDragOver={e => e.preventDefault()}
+      onDrop={() => {
+        swap();
+        setIsOvered(false);
+      }}>
+      <SubTitle isCorrect={isCorrect}>{value}</SubTitle>
+      <AiOutlineMenu />
+    </Container>
+  );
+};
 ```
-
-- dragLeave이벤트가 발생했을 때 직전 overTargetIdx 상태값을 확인하고, 현재 idx와 같은 값이라면 (다른 요소로 dragEnter이벤트가 발생하지 않은 경우) null로 설정한다.
-- 만약 해당 요소의 idx와 overTargetIdx가 다른 값이라면 dragTarget이 다른 요소 위를 통과중이므로 overTarget 그대로 유지한다.
 
 <br>
 
 ### **배운점**(Lessons Learned)
 
--
+- 상위 컴포넌트가 상태를 가지고 있으면 상태가 변경될 때마다 자신을 포함한 하위 컴포넌트들이 re-render 된다.
+- 불필요한 렌더링이 일어나는지 확인하고 상태 관리를 해야하는 컴포넌트를 잘 파악해야 한다.
 
 <br>
 
 ## **선언**(Declation)
 
--
+- 상위 컴포넌트에서 상태를 관리할 필요가 있는지 잘 판단하고 어느 컴포넌트에서 상태를 관리해야 하는지 고려하면서 코딩을 하자.
+- 이번 미션의 이벤트처럼 re-render가 여러번 발생하는 경우에 re-render가 꼭 필요한 컴포넌트들만 re-render가 되도록 상태를 가져야할 컴포넌트를 잘 고려하자.
 
 <br>
 
