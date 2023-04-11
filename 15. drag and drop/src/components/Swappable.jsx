@@ -1,10 +1,9 @@
 import { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-import { AiOutlineMenu } from 'react-icons/ai';
-
 import shuffle from '../utils/shuffle';
-// import { shuffle } from 'lodash';
+
+import Draggable from './Draggable';
 
 const Container = styled.div`
   width: 280px;
@@ -37,51 +36,33 @@ const Sequence = styled.div`
   width: 60px;
 `;
 
-const Draggable = styled.div`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 24px;
-  flex: 1;
-
-  ${props => (props.over ? 'background-color: #eaeaea;' : '')}
-`;
-
-const SubTitle = styled.p`
-  margin: 0 20px 0 0;
-  color: ${props => (props.correct ? '#2196f3' : '#ff3838')};
-`;
-
 const Swappable = ({ list }) => {
-  const [rank, setRank] = useState(shuffle(list));
-  const [overTargetIdx, setOverTargetIdx] = useState(null);
-  const dragTargetIdxRef = useRef(null);
+  const [rankTable, setRankTable] = useState(shuffle(list));
+  const dragTargetIdx = useRef(null);
+
+  const swap = idx => {
+    const newRankTable = [...rankTable];
+    [newRankTable[dragTargetIdx.current], newRankTable[idx]] = [newRankTable[idx], newRankTable[dragTargetIdx.current]];
+
+    setRankTable(newRankTable);
+  };
+
+  const handleDragStart = idx => {
+    dragTargetIdx.current = idx;
+  };
 
   return (
     <Container>
       <List>
-        {rank.map((value, idx) => (
+        {rankTable.map((value, idx) => (
           <Item key={value}>
             <Sequence>{idx + 1}</Sequence>
             <Draggable
-              draggable="true"
-              over={idx === overTargetIdx}
-              onDragStart={() => {
-                dragTargetIdxRef.current = idx;
-              }}
-              onDragEnter={() => setOverTargetIdx(idx)}
-              onDragLeave={() => setOverTargetIdx(overTarget => (overTarget === idx ? null : overTarget))}
-              onDragOver={e => e.preventDefault()}
-              onDrop={() => {
-                const newRank = [...rank];
-                [newRank[dragTargetIdxRef.current], newRank[idx]] = [newRank[idx], newRank[dragTargetIdxRef.current]];
-                setRank(newRank);
-                setOverTargetIdx(null);
-              }}>
-              <SubTitle correct={value === list[idx]}>{value}</SubTitle>
-              <AiOutlineMenu />
-            </Draggable>
+              value={value}
+              isCorrect={value === list[idx]}
+              handleDragStart={() => handleDragStart(idx)}
+              swap={() => swap(idx)}
+            />
           </Item>
         ))}
       </List>
