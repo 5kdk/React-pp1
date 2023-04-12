@@ -39,7 +39,7 @@ const Accordion = ({ menuList = [], showMultiple = false }) => {
             key={id}
             title={title}
             subMenu={subMenu}
-            active={activeMenuIds.includes(id)}
+            isActive={activeMenuIds.includes(id)}
             toggleMenu={() => {
               toggleMenu(id);
             }}

@@ -51,7 +51,7 @@ const ArrowIcon = styled(MdArrowDropDown)`
 
 // prettier-ignore
 const Container = styled.article`
-  ${props => props.active ? `
+  ${props => props.isActive ? `
     ${Title} > ${ArrowIcon} {
       transform: rotate(180deg);
       color: #b63b4d;
@@ -75,13 +75,13 @@ const Container = styled.article`
     }` : ''}
 `;
 
-const AccordionItem = ({ title, subMenu, active, toggleMenu, isLastChild }) => (
-  <Container active={active} isLastChild={isLastChild}>
+const AccordionItem = ({ title, subMenu, isActive, toggleMenu, isLastChild }) => (
+  <Container isActive={isActive} isLastChild={isLastChild}>
     <Title onClick={toggleMenu}>
       <ArrowIcon />
       {title}
     </Title>
-    {active && (
+    {isActive && (
       <SubMenuList>
         {subMenu.map((item, idx) => (
           <SubMenuItem key={`${idx}-${subMenu.title}`}>
