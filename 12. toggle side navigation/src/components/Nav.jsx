@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 // prettier-ignore
-const NavBar = styled.nav`
+const Container = styled.nav`
   left: -300px;
   width: 300px;
   background: #20232a;
@@ -10,6 +10,6 @@ const NavBar = styled.nav`
   ` : ''}
 `;
 
-const Nav = ({ isOpened }) => <NavBar isOpened={isOpened} />;
+const Nav = ({ isOpened }) => <Container isOpened={isOpened} />;
 
 export default Nav;
