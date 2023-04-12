@@ -61,8 +61,12 @@ const winConditions = [
 const initBoard = new Array(9).fill('');
 
 const TicTacToe = () => {
-  const [player, setPlayer] = useState('X');
-  const [board, setBoard] = useState(initBoard);
+  const [gameState, setGameState] = useState({
+    player: 'X',
+    board: initBoard,
+  });
+
+  const { player, board } = gameState;
 
   const isTicTacToe = winConditions.some(([A, B, C]) => board[A] && board[A] === board[B] && board[B] === board[C]);
   const isDraw = !isTicTacToe && board.every(item => item !== '');
@@ -70,15 +74,15 @@ const TicTacToe = () => {
 
   const handleItemClick = (item, idx) => {
     if (item !== '' || isTicTacToe) return;
+
     const newBoard = [...board];
     newBoard[idx] = player;
-    setBoard(newBoard);
-    setPlayer(player === 'X' ? 'O' : 'X');
+
+    setGameState({ player: player === 'X' ? 'O' : 'X', board: newBoard });
   };
 
   const handleResetClick = () => {
-    setPlayer('X');
-    setBoard(initBoard);
+    setGameState({ player: 'X', board: initBoard });
   };
 
   return (
