@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-
 import { BsArrowRightCircle } from 'react-icons/bs';
-
 import Article from './Article';
 
 // prettier-ignore
