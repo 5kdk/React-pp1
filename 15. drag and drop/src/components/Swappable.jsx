@@ -41,6 +41,8 @@ const Swappable = ({ list }) => {
   const dragTargetIdx = useRef(null);
 
   const swap = idx => {
+    if (dragTargetIdx.current === idx) return;
+
     const newRankTable = [...rankTable];
     [newRankTable[dragTargetIdx.current], newRankTable[idx]] = [newRankTable[idx], newRankTable[dragTargetIdx.current]];
 
