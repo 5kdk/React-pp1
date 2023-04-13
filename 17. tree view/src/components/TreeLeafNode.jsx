@@ -22,10 +22,6 @@ const Link = styled.a`
 const TreeSwitcher = styled.span`
   display: inline-block;
   width: 14px;
-
-  :before {
-    content: none;
-  }
 `;
 
 const Content = styled.span`
