@@ -52,8 +52,8 @@ const DateItem = styled.div`
     color: var(--white);` : ''}
 `;
 
-const DateGrid = ({ pickerId, currentDate }) => {
-  const { fullCalendar, isToday, isMuted, isSelected, handleClickDate } = useCalendarGrid(pickerId, currentDate);
+const DateGrid = ({ currentDate, selectedDate, setSelectedDate }) => {
+  const { fullCalendar, isToday, isMuted, isSelected } = useCalendarGrid(selectedDate, currentDate);
 
   return (
     <Container>
@@ -68,7 +68,7 @@ const DateGrid = ({ pickerId, currentDate }) => {
           isMuted={isMuted(date)}
           isSelected={isSelected(date)}
           onClick={() => {
-            handleClickDate(date);
+            if (selectedDate !== undefined) setSelectedDate(date);
           }}>
           {date.getDate()}
         </DateItem>

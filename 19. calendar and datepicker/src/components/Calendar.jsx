@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import { useRecoilValue } from 'recoil';
 import { DateGrid, Navigation } from '.';
-import selectedDateStateFamily from '../recoil/atoms/selectedDateStateFamily';
 
 const Container = styled.div`
   --calendar-size: ${props => props.calendarSize};
@@ -19,15 +17,14 @@ const Container = styled.div`
   background-color: var(--white);
 `;
 
-const Calendar = ({ pickerId, calendarRef, calendarSize = '350' }) => {
-  const selectedDate = useRecoilValue(selectedDateStateFamily(pickerId));
+const Calendar = ({ calendarRef = null, selectedDate, setSelectedDate, calendarSize = '350' }) => {
   const [currentDate, setCurrentDate] = useState(selectedDate ?? new Date());
 
   return (
     <>
-      <Container calendarSize={`${calendarSize}px`} ref={calendarRef}>
+      <Container calendarSize={`${calendarSize}px`} ref={calendarRef} onClick={e => e.stopPropagation()}>
         <Navigation currentDate={currentDate} setCurrentDate={setCurrentDate} />
-        <DateGrid pickerId={pickerId} currentDate={currentDate} />
+        <DateGrid currentDate={currentDate} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
       </Container>
     </>
   );

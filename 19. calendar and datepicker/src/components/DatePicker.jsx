@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
-import selectedDateStateFamily from '../recoil/atoms/selectedDateStateFamily';
-// import calendarIsOpenedState from '../recoil/atoms/calendarIsOpenedState';
 
 import useOnClickOutside from '../hooks/useOnClickOutside';
 
@@ -20,9 +16,9 @@ const Input = styled.input`
   padding: 5px;
 `;
 
-const DatePicker = ({ pickerId }) => {
+const DatePicker = () => {
   const [calendarIsOpened, setCalendarIsOpened] = useState(false);
-  const selectedDate = useRecoilValue(selectedDateStateFamily(pickerId));
+  const [selectedDate, setSelectedDate] = useState(null);
 
   // prettier-ignore
   const dateString = selectedDate
@@ -42,7 +38,9 @@ const DatePicker = ({ pickerId }) => {
         }}
         readOnly
       />
-      {calendarIsOpened && <Calendar pickerId={pickerId} calendarRef={calendarRef} />}
+      {calendarIsOpened && (
+        <Calendar calendarRef={calendarRef} selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+      )}
     </Conatainer>
   );
 };

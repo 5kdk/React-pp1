@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { BsFillCaretLeftFill, BsFillCaretRightFill } from 'react-icons/bs';
+import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai';
 
 import { MONTH_NAMES } from '../constants';
 
@@ -26,14 +26,14 @@ const Month = styled.div`
   font-size: 1.4em;
 `;
 
-const ArrowLeft = styled(BsFillCaretLeftFill)`
+const ArrowLeft = styled(AiFillCaretLeft)`
   text-align: center;
   line-height: 30px;
   font-size: 1.2em;
   cursor: pointer;
 `;
 
-const ArrowRight = styled(BsFillCaretRightFill)`
+const ArrowRight = styled(AiFillCaretRight)`
   text-align: center;
   line-height: 30px;
   font-size: 1.2em;
@@ -43,11 +43,6 @@ const ArrowRight = styled(BsFillCaretRightFill)`
 const Navigation = ({ currentDate, setCurrentDate }) => {
   const goToPrevMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1));
   const goToNextMonth = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1));
-  // const goToNextMonth = () => setCurrentDate(new Date(new Date(currentDate).setMonth(currentDate.getMonth() + 1)));
-  // const goToPrevMonth = () => setCurrentDate(new Date(new Date(currentDate).setMonth(currentDate.getMonth() - 1)));
-  // const goToNextMonth = () => setCurrentDate(new Date(new Date(currentDate).setMonth(currentDate.getMonth() + 1)));
-  // const goToPrevMonth = () => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() - 1)));
-  // const goToNextMonth = () => setCurrentDate(new Date(currentDate.setMonth(currentDate.getMonth() + 1)));
 
   return (
     <Container>

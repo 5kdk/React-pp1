@@ -8,8 +8,8 @@ const Title = styled.h1`
 const App = () => (
   <>
     <Title>DatePicker</Title>
-    <DatePicker pickerId="1" />
-    <DatePicker pickerId="2" />
+    <DatePicker />
+    <DatePicker />
   </>
 );
 

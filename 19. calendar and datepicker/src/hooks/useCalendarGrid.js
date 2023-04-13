@@ -1,11 +1,6 @@
 import { useMemo } from 'react';
-import { useRecoilState } from 'recoil';
 
-import selectedDateStateFamily from '../recoil/atoms/selectedDateStateFamily';
-
-const useCalendarGrid = (pickerId, currentDate) => {
-  const [selectedDate, setSelectedDate] = useRecoilState(selectedDateStateFamily(pickerId));
-
+const useCalendarGrid = (selectedDate, currentDate) => {
   const fullCalendar = useMemo(() => {
     const firstDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     const lastDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
@@ -32,7 +27,6 @@ const useCalendarGrid = (pickerId, currentDate) => {
     isToday,
     isSelected,
     isMuted,
-    handleClickDate: setSelectedDate,
   };
 };
 
