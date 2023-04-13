@@ -1,5 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
+import useAnalogClock from '../hooks/useAnalogClock';
 
 const Container = styled.div`
   position: relative;
@@ -66,41 +66,21 @@ const Time = styled.div`
   transform: rotate(${props => props.time * 30}deg);
 `;
 
+const timeNums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
 const AnalogClock = () => {
-  const [time, setTime] = useState(new Date());
-
-  const [hr, min, sec] = [time.getHours(), time.getMinutes(), time.getSeconds()];
-
-  const secDegree = sec / 60;
-  const minDegree = (secDegree + min) / 60;
-  const hrDegree = (minDegree + hr) / 12;
-
-  const tick = useCallback(() => setTime(new Date()), []);
-
-  useEffect(() => {
-    const intervalId = setInterval(tick, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  const { hrDegree, minDegree, secDegree } = useAnalogClock();
 
   return (
     <Container>
       <Hour deg={hrDegree * 360} />
       <Minute deg={minDegree * 360} />
       <Second deg={secDegree * 360} />
-      <Time time="1">|</Time>
-      <Time time="2">|</Time>
-      <Time time="3">|</Time>
-      <Time time="4">|</Time>
-      <Time time="5">|</Time>
-      <Time time="6">|</Time>
-      <Time time="7">|</Time>
-      <Time time="8">|</Time>
-      <Time time="9">|</Time>
-      <Time time="10">|</Time>
-      <Time time="11">|</Time>
-      <Time time="12">|</Time>
+      {timeNums.map(num => (
+        <Time key={num} time={num}>
+          |
+        </Time>
+      ))}
     </Container>
   );
 };
