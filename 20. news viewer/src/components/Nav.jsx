@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useRecoilState } from 'recoil';
-import selectedNavState from '../recoil/atoms/selectedNavState';
+import categoryState from '../recoil/atoms/categoryState';
 
 const CategoryList = styled.nav`
   width: 768px;
@@ -53,13 +53,13 @@ const categories = [
 ];
 
 const Nav = () => {
-  const [selectedNav, setSelectedNav] = useRecoilState(selectedNavState);
+  const [category, setCategory] = useRecoilState(categoryState);
 
   return (
     <CategoryList>
       <Categories>
         {categories.map(({ id, title }) => (
-          <CategoryItem key={id} isActive={id === selectedNav} onClick={() => setSelectedNav(id)}>
+          <CategoryItem key={id} isActive={id === category} onClick={() => setCategory(id)}>
             {title}
           </CategoryItem>
         ))}

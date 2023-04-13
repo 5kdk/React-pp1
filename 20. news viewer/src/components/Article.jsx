@@ -32,12 +32,12 @@ const Description = styled.p`
   white-space: normal;
 `;
 
-const Article = ({ url, urlToImage, title, description, onClick }) => (
+const Article = ({ url, urlToImage, title, description }) => (
   <Container>
-    <Thumbnail className="thumbnail" onClick={onClick}>
-      {/* <a href={url} target="_blank" rel="noopener noreferrer"> */}
-      <Image src={urlToImage || 'https://via.placeholder.com/160x100'} alt="thumbnail" />
-      {/* </a> */}
+    <Thumbnail className="thumbnail">
+      <a href={url} target="_blank" rel="noopener noreferrer">
+        <Image src={urlToImage || 'https://via.placeholder.com/160x100'} alt="thumbnail" />
+      </a>
     </Thumbnail>
     <div className="contents">
       <NewsTitle>
